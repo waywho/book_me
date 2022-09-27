@@ -13,6 +13,7 @@
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+    <%= button_to 'sign out',  destroy_user_session_path, method: :delete, data: { turbo: "false" } %>
     <%= yield %>
   </body>
 </html>

@@ -33,6 +33,15 @@ gem "cssbundling-rails"
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
 
+# Omniauth
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "google-apis-calendar_v3"
+gem "omniauth-rails_csrf_protection"
+
+# http
+gem "net-http"
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

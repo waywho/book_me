@@ -38,3 +38,5 @@
 
 *.DS_Store
 **/**/*.DS_Store
+
+/config/credentials/development.key
