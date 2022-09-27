@@ -19,6 +19,6 @@ class Oauth::GoogleAuthController < ApplicationController
     user.skip_confirmation!
     user.save!
     sign_in(:user, user)
-    redirect_to root_path
+    redirect_to google_calendars_path
   end
 end

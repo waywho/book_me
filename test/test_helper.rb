@@ -10,4 +10,10 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  include Devise::Test::IntegrationHelpers
+  def log_in(user)
+    get '/users/sign_in'
+    sign_in(user)
+    post user_session_url
+  end
 end
