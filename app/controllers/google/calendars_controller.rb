@@ -13,17 +13,19 @@ class Google::CalendarsController < ApplicationController
   def create
     google_calendar = @calendar_client.get_calendar_list(params[:calendar_id])
 
-    calendar = current_user.calendars.create(
-      service: "google",
-      identifier: google_calendar.id,
-      summary: google_calendar.summary,
-      description: google_calendar.description,
-      time_zone: google_calendar.time_zone,
-      primary: google_calendar.primary,
-      etag: google_calendar.etag
-    )
+    unless calendar = user.calendars.find_by(identifier: google_calendar.id)
+      calendar = current_user.calendars.create(
+        service: "google",
+        identifier: google_calendar.id,
+        summary: google_calendar.summary,
+        description: google_calendar.description,
+        time_zone: google_calendar.time_zone,
+        primary: google_calendar.primary,
+        etag: google_calendar.etag
+      )
+    end
 
-    redirect_to calendar_path(calendar)
+    redirect_to google_calendar_path(calendar)
   end
 
   private

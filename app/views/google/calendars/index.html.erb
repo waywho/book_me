@@ -3,5 +3,5 @@
 
 
 <% @calendars.each do |calendar| %>
-	<%= button_to "Connect to #{calendar.id}", google_calendars_path(id: calendar.id) %>)</li>
+	<%= button_to "Connect to #{calendar.id}", google_calendars_path(id: calendar.id), class: "btn btn-primary mb-4" %></li>
 <% end %>

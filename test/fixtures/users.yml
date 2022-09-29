@@ -6,15 +6,17 @@
 #
 one:
   email: "test1@test.com"
-  first_name: Test
-  last_name: User
-  encrypted_password: password
-  confirmed_at: 5.days.ago
+  confirmed_at: <%= 5.days.ago %>
+  # first_name: Test
+  # last_name: User
+  # encrypted_password: password
+  # confirmed_at: 5.days.ago
 #
 two:
   email: "test2@test.com"
-  first_name: Lisa
-  last_name: Simpson
-  encrypted_password: password
-  external_auth: google
-  confirmed_at: 2.days.ago
+  confirmed_at: <%= 2.days.ago %>
+  # first_name: Lisa
+  # last_name: Simpson
+  # encrypted_password: password
+  # provider: google
+  # confirmed_at: 2.days.ago
