@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_211905) do
     t.string "summary"
     t.string "description"
     t.boolean "primary"
-    t.string "service"
+    t.string "provider"
     t.string "etag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -33,7 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_211905) do
     t.text "token"
     t.string "refresh_token"
     t.datetime "expires_at"
-    t.string "service"
+    t.string "provider"
     t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -59,6 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_211905) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "provider"
+    t.string "uid"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

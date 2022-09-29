@@ -24,4 +24,4 @@
   <% end %>
 <% end %>
 
-<%= button_to "google", "/auth/google_oauth2", data: { turbo: "false" }, class: "btn btn-primary" %>
+<%= button_to "Google", user_google_oauth2_omniauth_authorize_path, data: { turbo: "false" }, class: "btn btn-primary" %>

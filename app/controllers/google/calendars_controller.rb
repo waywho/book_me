@@ -3,29 +3,29 @@ class Google::CalendarsController < ApplicationController
   before_action :set_token, :set_calendar_client
 
   def index
-    @calendars = @calendar_client.list_calendar_lists.items
+    @google_calendars = @calendar_client.list_calendar_lists.items
+    @calendars = current_user.calendars
   end
 
   def show
-    @calendar = @calendar_client.get_calendar("primary")
+    @calendar = Calendar.find(params[:id])
+    @google_calendar = @calendar_client.get_calendar("primary")
   end
 
   def create
-    google_calendar = @calendar_client.get_calendar_list(params[:calendar_id])
+    google_calendar = @calendar_client.get_calendar_list(params[:id])
 
-    unless calendar = user.calendars.find_by(identifier: google_calendar.id)
-      calendar = current_user.calendars.create(
-        service: "google",
-        identifier: google_calendar.id,
-        summary: google_calendar.summary,
-        description: google_calendar.description,
-        time_zone: google_calendar.time_zone,
-        primary: google_calendar.primary,
-        etag: google_calendar.etag
-      )
+    @calendar = current_user.calendars.where(identifier: google_calendar.id).first_or_create do |calendar|
+        calendar.provider = "google_oauth2"
+        calendar.identifier = google_calendar.id
+        calendar.summary = google_calendar.summary
+        calendar.description = google_calendar.description
+        calendar.time_zone = google_calendar.time_zone
+        calendar.primary = google_calendar.primary
+        calendar.etag = google_calendar.etag.gsub("\"", "")
     end
 
-    redirect_to google_calendar_path(calendar)
+    redirect_to google_calendar_path(@calendar) if @calendar.persisted?
   end
 
   private

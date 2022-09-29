@@ -7,7 +7,7 @@ class CreateCalendars < ActiveRecord::Migration[7.0]
       t.string :summary
       t.string :description
       t.boolean :primary
-      t.string :service
+      t.string :provider
       t.string :etag
 
       t.timestamps

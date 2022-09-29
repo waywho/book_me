@@ -2,12 +2,12 @@ require 'google/api_client/client_secrets.rb'
 
 class Token < ApplicationRecord
   # constants
-  def self.auth_services
-    %w[google].freeze
+  def self.auth_providers
+    %w[google_oauth2].freeze
   end
 
   belongs_to :user
-  validates :service, inclusion: { in: auth_services }
+  validates :provider, inclusion: { in: auth_providers }
 
   def google_secret
     Google::APIClient::ClientSecrets.new({

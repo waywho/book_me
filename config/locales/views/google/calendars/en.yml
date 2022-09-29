@@ -1,0 +1,6 @@
+en:
+  google:
+    calendars:
+      show:
+        google_oauth2: Google Calendar
+        primary: Primary

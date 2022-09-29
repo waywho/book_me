@@ -1,4 +1,5 @@
-<h1>Calendars#show</h1>
-<p>Find me in app/views/calendars/show.html.erb</p>
+<h1><%= t(".#{@calendar.provider}") %>: <%= t(".primary") if @calendar.primary%> </h1>
 
-<%= @calendar.inspect %>
+<%= @calendar.summary %>
+<%= @calendar.time_zone %>
+
