@@ -42,6 +42,11 @@ gem "omniauth-rails_csrf_protection"
 # http
 gem "net-http"
 
+
+# ViewComponent
+gem "view_component"
+gem "lookbook", ">= 1.0.7"
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
@@ -53,10 +58,6 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
-
-# ViewComponent
-gem "view_component"
-gem "lookbook"
 
 # simple form
 gem 'simple_form'
