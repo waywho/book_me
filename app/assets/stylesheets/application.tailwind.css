@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+	html {
+		@apply leading-tight;
+	}
+
 	h1 {
 				@apply text-5xl font-bold;
 	}
