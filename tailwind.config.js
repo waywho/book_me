@@ -5,6 +5,7 @@ module.exports = {
     './app/helpers/**/*.rb',
     './app/components/*.rb',
     './app/components/**/*.html.erb',
+    './app/components/**/*.js',
     './app/assets/stylesheets/**/*.css',
     './app/javascript/**/*.js',
     './config/initializers/simple_form_tailwind.rb',
