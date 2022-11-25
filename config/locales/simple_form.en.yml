@@ -1,5 +1,13 @@
 en:
   simple_form:
+    labels:
+      event:
+        title: Title
+        description: Description
+        creator_name: Your Name
+        creator_email: Your Email
+        start_datetime: Start Time
+        end_datetime: End Time
     "yes": 'Yes'
     "no": 'No'
     required:

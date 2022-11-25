@@ -3,12 +3,17 @@ module.exports = {
   content: [
     './app/views/**/*.html.erb',
     './app/helpers/**/*.rb',
+    './app/components/*.rb',
+    './app/components/**/*.html.erb',
     './app/assets/stylesheets/**/*.css',
     './app/javascript/**/*.js',
-    './app/javascript/**/*.js',
     './config/initializers/simple_form_tailwind.rb',
-    './node_modules/flowbite/**/*.js'
   ],
+  theme: {
+    container: {
+      center: true,
+    },
+  },
   daisyui: {
       themes: [
         {

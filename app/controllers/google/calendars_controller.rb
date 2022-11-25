@@ -10,6 +10,10 @@ class Google::CalendarsController < ApplicationController
   def show
     @calendar = Calendar.find(params[:id])
     @google_calendar = @calendar_client.get_calendar("primary")
+    page_token = nil
+
+    @events = @calendar_client.list_events('primary', page_token: page_token)
+
   end
 
   def create
