@@ -1,9 +1,9 @@
 <div class="card w-56 bg-base-100 shadow-xl rounded-md cursor-auto transition ease-in-out hover:scale-110 hover:bg-gradient-to-b hover:from-gray-200 hover:to-slate-100 duration-300 delay-150" data-controller="event-component">
 	<div class="card-body p-4 cursor-auto">
-		<b ><%= @event.title %></b>
-		<div ><%= @event.creator_name %></div>
-		<div class="hidden" data-event-component-target="detail"><%= @event.creator_email %></div>
-		<div class="hidden" data-event-component-target="detail"><%= @event.description %></div>
+		<b><%= @event.title %></b>
+		<%= @event.creator_name %>
+		<div class="hidden text-xs" data-event-component-target="detail"><%= @event.creator_email %></div>
+		<span class="hidden" data-event-component-target="detail"><%= @event.description %></div>
 
 		<div data-event-component-target="time"><%= time_duration %></div>
 

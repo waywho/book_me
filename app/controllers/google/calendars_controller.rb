@@ -1,19 +1,16 @@
 class Google::CalendarsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_token, :set_calendar_client
+  # before_action :set_token, :set_calendar_client
+  before_action :set_calendar_service
 
   def index
-    @google_calendars = @calendar_client.list_calendar_lists.items
+    @google_calendars = @calendar_service.calendars
     @calendars = current_user.calendars
   end
 
   def show
     @calendar = Calendar.find(params[:id])
-    @google_calendar = @calendar_client.get_calendar("primary")
-    page_token = nil
-
-    @events = @calendar_client.list_events('primary', page_token: page_token)
-
+    @google_calendar = @calendar_service
   end
 
   def create
@@ -34,13 +31,17 @@ class Google::CalendarsController < ApplicationController
 
   private
 
-  def set_token
-    @token = current_user.google_token
-    @token.refresh! if @token.expired?
+  def set_calendar_service
+    @calendar_service = Google::Calendar.new(user: current_user)
   end
 
-  def set_calendar_client
-    @calendar_client = Google::Apis::CalendarV3::CalendarService.new
-    @calendar_client.authorization = @token.google_secret.to_authorization
-  end
+  # def set_token
+  #   @token = current_user.google_token
+  #   @token.refresh! if @token.expired?
+  # end
+
+  # def set_calendar_client
+  #   @calendar_client = Google::Apis::CalendarV3::CalendarService.new
+  #   @calendar_client.authorization = @token.google_secret.to_authorization
+  # end
 end

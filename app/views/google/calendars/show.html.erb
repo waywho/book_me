@@ -2,4 +2,7 @@
 
 <%= @calendar.summary %>
 <%= @calendar.time_zone %>
-
+<br />
+<% @google_calendar.events.each do |event| %>
+	<%= render EventComponent.new(event: event) %>
+<% end %>
