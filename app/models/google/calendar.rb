@@ -16,6 +16,10 @@ class Google::Calendar
     end
   end
 
+  def availabilities_by(type)
+    get_events(q: type)
+  end
+
   def get_calendars
     client.list_calendar_lists
   end
@@ -24,8 +28,8 @@ class Google::Calendar
     client.get_calendar(calendar)
   end
 
-  def get_events
-    client.list_events(calendar, page_token: nil)
+  def get_events(q: nil)
+    client.list_events(calendar, q: q, page_token: nil)
   end
 
   private
