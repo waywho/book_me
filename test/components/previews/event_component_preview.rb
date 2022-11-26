@@ -6,7 +6,7 @@ class EventComponentPreview < ViewComponent::Preview
       user: User.first,
       provider: "google_oauth2"
     )
-    event = Event.new(
+    event = OpenStruct.new(
       title: "Best Appointment",
       description: "It will be very useful",
       location: "https://at/this/address",
