@@ -1,13 +1,8 @@
 require "test_helper"
 
-class User::CalendarsControllerTest < ActionDispatch::IntegrationTest
+class Dashboard::CalendarsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user_calendar = user_calendars(:one)
-  end
-
-  test "should get index" do
-    get user_calendars_url
-    assert_response :success
   end
 
   test "should get new" do

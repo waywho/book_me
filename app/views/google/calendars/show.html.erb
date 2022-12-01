@@ -1,8 +1,0 @@
-<h1><%= t(".#{@calendar.provider}") %>: <%= t(".primary") if @calendar.primary%> </h1>
-
-<%= @calendar.summary %>
-<%= @calendar.time_zone %>
-<br />
-<% @google_calendar.events.each do |event| %>
-	<%= render EventComponent.new(event: event) %>
-<% end %>

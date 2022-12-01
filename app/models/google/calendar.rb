@@ -6,6 +6,10 @@ class Google::Calendar
     @user = user
   end
 
+  def primary_calendar
+    [get_calendar]
+  end
+
   def calendars
     get_calendars.items
   end
