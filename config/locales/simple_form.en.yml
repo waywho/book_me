@@ -6,8 +6,8 @@ en:
         description: Description
         creator_name: Your Name
         creator_email: Your Email
-        start_datetime: Start Time
-        end_datetime: End Time
+        start_at: Start Time
+        end_at: End Time
     "yes": 'Yes'
     "no": 'No'
     required:

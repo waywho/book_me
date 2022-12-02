@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_27_212336) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_01_190031) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -24,6 +24,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_27_212336) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_appointment_types_on_user_id"
+  end
+
+  create_table "availabilities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "calendar_id", null: false
+    t.uuid "appointment_type_id", null: false
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.string "identification"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appointment_type_id"], name: "index_availabilities_on_appointment_type_id"
+    t.index ["calendar_id"], name: "index_availabilities_on_calendar_id"
+    t.index ["user_id"], name: "index_availabilities_on_user_id"
   end
 
   create_table "calendars", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -94,6 +108,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_27_212336) do
   end
 
   add_foreign_key "appointment_types", "users"
+  add_foreign_key "availabilities", "appointment_types"
+  add_foreign_key "availabilities", "calendars"
+  add_foreign_key "availabilities", "users"
   add_foreign_key "calendars", "users"
   add_foreign_key "events", "calendars"
   add_foreign_key "tokens", "users"

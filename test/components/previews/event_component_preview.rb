@@ -10,8 +10,8 @@ class EventComponentPreview < ViewComponent::Preview
       title: "Best Appointment",
       description: "It will be very useful",
       location: "https://at/this/address",
-      start_datetime: DateTime.now,
-      end_datetime: 1.hour.from_now,
+      start_at: DateTime.now,
+      end_at: 1.hour.from_now,
       creator_name: "Elaine Page",
       creator_email: "elaine@isingjazz.com",
       calendar: calendar
