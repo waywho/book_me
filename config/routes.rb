@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  namespace :dashboard do
+    get "/", to: "calendars#index", as: :dashboard
+    resource :calendar, except: [:new]
+  end
+
   namespace :google do
     resources :calendars, only: %i[index show create]
   end

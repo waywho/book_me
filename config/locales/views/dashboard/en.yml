@@ -1,0 +1,10 @@
+en:
+  dashboard:
+    calendars:
+      index:
+        primary_calendar: Go to Google Calendar
+        connect_calendars: Connect to {%name} calendar
+      show:
+        google_oauth2: Google Calendar
+        primary: Primary
+

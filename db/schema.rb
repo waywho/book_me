@@ -10,10 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_27_211905) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_01_190031) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "appointment_types", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "location"
+    t.integer "duration"
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_appointment_types_on_user_id"
+  end
+
+  create_table "availabilities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "calendar_id", null: false
+    t.uuid "appointment_type_id", null: false
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.string "identification"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appointment_type_id"], name: "index_availabilities_on_appointment_type_id"
+    t.index ["calendar_id"], name: "index_availabilities_on_calendar_id"
+    t.index ["user_id"], name: "index_availabilities_on_user_id"
+  end
 
   create_table "calendars", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
@@ -27,6 +52,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_211905) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_calendars_on_user_id"
+  end
+
+  create_table "events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "location"
+    t.uuid "calendar_id", null: false
+    t.datetime "start_datetime"
+    t.datetime "end_datetime"
+    t.string "type"
+    t.string "creator_name"
+    t.string "creator_email"
+    t.string "etag"
+    t.string "identifier"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["calendar_id"], name: "index_events_on_calendar_id"
   end
 
   create_table "tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -65,6 +107,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_211905) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "appointment_types", "users"
+  add_foreign_key "availabilities", "appointment_types"
+  add_foreign_key "availabilities", "calendars"
+  add_foreign_key "availabilities", "users"
   add_foreign_key "calendars", "users"
+  add_foreign_key "events", "calendars"
   add_foreign_key "tokens", "users"
 end
