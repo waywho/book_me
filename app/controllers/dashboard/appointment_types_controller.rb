@@ -1,9 +1,10 @@
 class Dashboard::AppointmentTypesController < ApplicationController
+  before_action :set_calendar
   before_action :set_appointment_type, only: %i[ show edit update destroy ]
 
   # GET /dashboard/appointment_types
   def index
-    @appointment_types = AppointmentType.all
+    @appointment_types = @calendar.appointment_types
   end
 
   # GET /dashboard/appointment_types/1
@@ -12,7 +13,7 @@ class Dashboard::AppointmentTypesController < ApplicationController
 
   # GET /dashboard/appointment_types/new
   def new
-    @appointment_type = AppointmentType.new
+    @appointment_type = @calendar.appointment_types.new
   end
 
   # GET /dashboard/appointment_types/1/edit
@@ -21,10 +22,10 @@ class Dashboard::AppointmentTypesController < ApplicationController
 
   # POST /dashboard/appointment_types
   def create
-    @appointment_type = AppointmentType.new(appointment_type_params)
+    @appointment_type = @calendar.appointment_types.new(appointment_type_params)
 
     if @appointment_type.save
-      redirect_to [:dashboard, @appointment_type], notice: "Appointment type was successfully created."
+      redirect_to [:dashboard, @appointment_type, calendar_id: @calendar.id], notice: "Appointment type was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -33,7 +34,7 @@ class Dashboard::AppointmentTypesController < ApplicationController
   # PATCH/PUT /dashboard/appointment_types/1
   def update
     if @appointment_type.update(appointment_type_params)
-      redirect_to [:dashboard, @appointment_type], notice: "Appointment type was successfully updated."
+      redirect_to [:dashboard, @appointment_type, calendar_id: @calendar.id], notice: "Appointment type was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -42,13 +43,17 @@ class Dashboard::AppointmentTypesController < ApplicationController
   # DELETE /dashboard/appointment_types/1
   def destroy
     @appointment_type.destroy
-    redirect_to dashboard_appointment_types_url, notice: "Appointment type was successfully destroyed."
+    redirect_to dashboard_appointment_types_path(calendar_id: @calendar.id), notice: "Appointment type was successfully destroyed."
   end
 
   private
+    def set_calendar
+      @calendar = Calendar.find(params[:calendar_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_appointment_type
-      @appointment_type = AppointmentType.find(params[:id])
+      @appointment_type = @calendar.appointment_types.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

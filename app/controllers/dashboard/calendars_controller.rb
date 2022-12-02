@@ -12,10 +12,6 @@ class Dashboard::CalendarsController < ApplicationController
   def show
   end
 
-  # GET /user/calendars/1/edit
-  def edit
-  end
-
   # POST /user/calendars
   def create
     google_calendar = @calendar_service.get_calendar_list(params[:id])

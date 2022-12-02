@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   namespace :dashboard do
     get "/", to: "calendars#index", as: :dashboard
-    resource :calendar, except: [:new]
-    resources :appointment_types
+    resource :calendar, only: %i[index show create destroy]
+    scope "calendar/:calendar_id" do
+      resources :appointment_types
+    end
   end
 
   devise_for :users, controllers: { omniauth_callbacks: 'oauth/omniauth_callbacks' } do

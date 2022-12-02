@@ -6,9 +6,9 @@
   <% @appointment_types.each do |appointment_type| %>
     <%= render appointment_type %>
     <p>
-      <%= link_to "Show this appointment type", [:dashboard, appointment_type] %>
+      <%= link_to "Show this appointment type", [:dashboard, appointment_type, calendar_id: @calendar.id] %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New appointment type", new_dashboard_appointment_type_path %>
+<%= link_to "New appointment type", new_dashboard_appointment_type_path(calendar_id: @calendar.id) %>
