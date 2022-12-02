@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @appointment_type %>
+
+<div>
+  <%= link_to "Edit this appointment type", edit_dashboard_appointment_type_path(@appointment_type) %> |
+  <%= link_to "Back to appointment types", dashboard_appointment_types_path %>
+
+  <%= button_to "Destroy this appointment type", [:dashboard, @appointment_type], method: :delete %>
+</div>

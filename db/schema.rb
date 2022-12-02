@@ -52,7 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_174149) do
     t.string "etag"
     t.string "identifier"
     t.uuid "user_id", null: false
-    t.uuid "appointment_type_id", null: false
+    t.uuid "appointment_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["appointment_type_id"], name: "index_events_on_appointment_type_id"

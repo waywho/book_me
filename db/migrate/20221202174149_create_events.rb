@@ -12,7 +12,7 @@ class CreateEvents < ActiveRecord::Migration[7.0]
       t.string :etag
       t.string :identifier
       t.references :user, null: false, foreign_key: true, type: :uuid
-      t.references :appointment_type, null: false, foreign_key: true, type: :uuid
+      t.references :appointment_type, null: true, foreign_key: true, type: :uuid
 
       t.timestamps
     end

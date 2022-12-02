@@ -2,11 +2,9 @@ Rails.application.routes.draw do
   namespace :dashboard do
     get "/", to: "calendars#index", as: :dashboard
     resource :calendar, except: [:new]
+    resources :appointment_types
   end
 
-  namespace :google do
-    resources :calendars, only: %i[index show create]
-  end
   devise_for :users, controllers: { omniauth_callbacks: 'oauth/omniauth_callbacks' } do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end

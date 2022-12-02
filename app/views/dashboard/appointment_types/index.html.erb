@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Appointment types</h1>
+
+<div id="appointment_types">
+  <% @appointment_types.each do |appointment_type| %>
+    <%= render appointment_type %>
+    <p>
+      <%= link_to "Show this appointment type", [:dashboard, appointment_type] %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New appointment type", new_dashboard_appointment_type_path %>

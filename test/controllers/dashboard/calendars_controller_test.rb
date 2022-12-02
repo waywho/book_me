@@ -1,43 +1,50 @@
 require "test_helper"
 
 class Dashboard::CalendarsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @user_calendar = user_calendars(:one)
-  end
+  # setup do
+  #   user = users(:one)
+  #   sign_in user
+  #   @calendar = calendars(:one)
+  # end
 
-  test "should get new" do
-    get new_user_calendar_url
-    assert_response :success
-  end
+  # test "should get index" do
+  #   get dashboard_calendars_url
+  #   assert_response :success
+  # end
 
-  test "should create user_calendar" do
-    assert_difference("User::Calendar.count") do
-      post user_calendars_url, params: { user_calendar: {  } }
-    end
+  # test "should get new" do
+  #   get new_dashboard_calendar_url
+  #   assert_response :success
+  # end
 
-    assert_redirected_to user_calendar_url(User::Calendar.last)
-  end
+  # test "should create calendar" do
+  #   assert_difference("Calendar.count") do
+  #     post dashboard_calendars_url, params: { calendar: {  } }
+  #   end
 
-  test "should show user_calendar" do
-    get user_calendar_url(@user_calendar)
-    assert_response :success
-  end
+  #   assert_redirected_to dashboard_calendar_url(Calendar.last)
+  # end
 
-  test "should get edit" do
-    get edit_user_calendar_url(@user_calendar)
-    assert_response :success
-  end
+  # test "should show calendar" do
+  #   get dashboard_calendar_url(@calendar)
+  #   assert_response :success
+  # end
 
-  test "should update user_calendar" do
-    patch user_calendar_url(@user_calendar), params: { user_calendar: {  } }
-    assert_redirected_to user_calendar_url(@user_calendar)
-  end
+  # test "should get edit" do
+  #   get edit_dashboard_calendar_url(@calendar)
+  #   assert_response :success
+  # end
 
-  test "should destroy user_calendar" do
-    assert_difference("User::Calendar.count", -1) do
-      delete user_calendar_url(@user_calendar)
-    end
+  # test "should update calendar" do
+  #   patch dashboard_calendar_url(@calendar), params: { calendar: {  } }
+  #   assert_redirected_to dashboard_calendar_url(@calendar)
+  # end
 
-    assert_redirected_to user_calendars_url
-  end
+  # test "should destroy calendar" do
+  #   assert_difference("Calendar.count", -1) do
+  #     delete dashboard_calendar_url(@calendar)
+  #   end
+
+  #   assert_redirected_to dashboard_calendars_url
+  # end
 end

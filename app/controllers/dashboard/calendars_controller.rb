@@ -38,13 +38,13 @@ class Dashboard::CalendarsController < ApplicationController
   end
 
   # PATCH/PUT /user/calendars/1
-  def update
-    if @calendar.update(calendar_params)
-      redirect_to @calendar, notice: "Calendar was successfully updated."
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
+  # def update
+  #   if @calendar.update(calendar_params)
+  #     redirect_to @calendar, notice: "Calendar was successfully updated."
+  #   else
+  #     render :edit, status: :unprocessable_entity
+  #   end
+  # end
 
   # DELETE /user/calendars/1
   def destroy
@@ -62,8 +62,8 @@ class Dashboard::CalendarsController < ApplicationController
       @calendar = Calendar.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
-    def calendar_params
-      params.fetch(:user_calendar, {})
-    end
+    # # Only allow a list of trusted parameters through.
+    # def calendar_params
+    #   params.fetch(:user_calendar, {})
+    # end
 end

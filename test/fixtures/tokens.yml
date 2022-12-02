@@ -4,12 +4,12 @@ one:
   token: MyText
   refresh_token: MyString
   expires_at: 2022-09-25 21:27:03
-  service: MyString
+  provider: MyString
   user: one
 
 two:
   token: MyText
   refresh_token: MyString
   expires_at: 2022-09-25 21:27:03
-  service: MyString
+  provider: MyString
   user: two
