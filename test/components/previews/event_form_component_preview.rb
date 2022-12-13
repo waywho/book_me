@@ -2,6 +2,6 @@
 
 class EventFormComponentPreview < ViewComponent::Preview
   def default
-    render(EventFormComponent.new(event: :event, path: "/"))
+    render(EventFormComponent.new(event: Event.new, path: "/"))
   end
 end

@@ -4,8 +4,11 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import EventComponentController from "../../components/event_component/event_component_controller"
+application.register("event-component", EventComponentController)
+
+import ModalComponentController from "../../components/modal_component/modal_component_controller"
+application.register("modal-component", ModalComponentController)
 
 // Import view component stimulus controllers
-import "../../components"
+// import "../../components"

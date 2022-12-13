@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_one :google_token, ->{ where(provider: 'google_oauth2') },
           class_name: "Token", autosave: true, dependent: :delete
   has_many :calendars
+  has_many :appointment_types
 
   def self.from_omniauth(auth)
     where(email: auth.info.email, provider: auth.provider).first_or_initialize do |user|
@@ -24,5 +25,15 @@ class User < ApplicationRecord
     t = google_token
     t.refresh! if t.expires_at < Time.zone.now
     t.token
+  end
+
+  def reached_limit?
+    return false if premium?
+
+    appointment_types.one?
+  end
+
+  def premium?
+    false
   end
 end

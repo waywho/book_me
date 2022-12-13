@@ -1,14 +1,20 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Appointment types</h1>
-
-<div id="appointment_types">
-  <% @appointment_types.each do |appointment_type| %>
-    <%= render appointment_type %>
-    <p>
-      <%= link_to "Show this appointment type", [:dashboard, appointment_type, calendar_id: @calendar.id] %>
-    </p>
+<div class="flex justify-between">
+  <h1>Appointment Types</h1>
+  <% if current_user.reached_limit? %>
+    <div class="tooltip" data-tip="You have exceeded allowed appointment types, please upgrade to create more!">
+      <%= link_to "New appointment type", new_dashboard_appointment_type_path(calendar_id: @calendar.id), class: "btn btn-outline ", disabled: true %>
+    </div>
   <% end %>
 </div>
 
-<%= link_to "New appointment type", new_dashboard_appointment_type_path(calendar_id: @calendar.id) %>
+<div class="flex mt-10">
+  <% unless current_user.reached_limit? %>
+    <%= turbo_frame_tag :new_appointment_type, class: "w-1/2", src: new_dashboard_appointment_type_path(calendar_id: @calendar.id) do %>
+      <%#= link_to "New appointment type", new_dashboard_appointment_type_path(calendar_id: @calendar.id), class: "btn btn-outline" %>
+    <% end %>
+  <% end %>
+
+  <div id="appointment_types" class="w-1/2">
+    <%= render partial: "appointment_type", collection: @appointment_types %>
+  </div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_02_191235) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_12_225159) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -26,13 +26,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_191235) do
     t.index ["user_id"], name: "index_appointment_types_on_user_id"
   end
 
-  create_table "calendar_appointment_types", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "calendar_id", null: false
+  create_table "appointment_types_calendars", id: false, force: :cascade do |t|
     t.uuid "appointment_type_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["appointment_type_id"], name: "index_calendar_appointment_types_on_appointment_type_id"
-    t.index ["calendar_id"], name: "index_calendar_appointment_types_on_calendar_id"
+    t.uuid "calendar_id", null: false
+    t.index ["appointment_type_id"], name: "index_appointment_types_calendars_on_appointment_type_id"
+    t.index ["calendar_id"], name: "index_appointment_types_calendars_on_calendar_id"
   end
 
   create_table "calendars", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -54,7 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_191235) do
     t.text "description"
     t.string "location"
     t.uuid "calendar_id", null: false
-    t.date "start_at"
+    t.datetime "start_at", precision: nil
     t.string "type"
     t.string "creator_name"
     t.string "creator_email"
@@ -64,6 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_191235) do
     t.uuid "appointment_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "end_at"
     t.index ["appointment_type_id"], name: "index_events_on_appointment_type_id"
     t.index ["calendar_id"], name: "index_events_on_calendar_id"
     t.index ["user_id"], name: "index_events_on_user_id"
@@ -106,8 +105,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_191235) do
   end
 
   add_foreign_key "appointment_types", "users"
-  add_foreign_key "calendar_appointment_types", "appointment_types"
-  add_foreign_key "calendar_appointment_types", "calendars"
+  add_foreign_key "appointment_types_calendars", "appointment_types"
+  add_foreign_key "appointment_types_calendars", "calendars"
   add_foreign_key "calendars", "users"
   add_foreign_key "events", "appointment_types"
   add_foreign_key "events", "calendars"

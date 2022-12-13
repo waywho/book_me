@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resource :calendar, only: %i[index show create destroy]
     scope "calendar/:calendar_id" do
       resources :appointment_types
+      resources :availabilities
     end
   end
 

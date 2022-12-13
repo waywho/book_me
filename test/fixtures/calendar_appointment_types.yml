@@ -1,9 +1,0 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  calendar: one
-  appointment_type: one
-
-two:
-  calendar: two
-  appointment_type: two

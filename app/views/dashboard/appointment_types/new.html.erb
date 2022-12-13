@@ -1,7 +1,8 @@
 <h1>New appointment type</h1>
 
-<%= render "form", appointment_type: @appointment_type %>
-
+<%= turbo_frame_tag :new_appointment_type do %>
+  <%= render "form", appointment_type: @appointment_type %>
+<% end %>
 <br>
 
 <div>

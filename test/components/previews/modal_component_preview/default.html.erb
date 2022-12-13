@@ -1,0 +1,8 @@
+<label for="my-modal-6" class="btn">open modal</label>
+<%= render ModalComponent.new do |c| %>
+	<h3 class="font-bold text-lg">Congratulations random Internet user!</h3>
+	<p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+
+	<% c.with_button_alert(path: "").with_content("cancel") %>
+	<% c.with_button_primary(path: "").with_content("save") %>
+<% end %>

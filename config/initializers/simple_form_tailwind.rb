@@ -22,7 +22,7 @@ SimpleForm.setup do |config|
   config.include_default_input_wrapper_class = false
 
   # CSS class to add for error notification helper.
-  config.error_notification_class = 'text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-400'
+  config.error_notification_class = 'text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-400 max-w-md'
 
   # Method used to tidy up errors. Specify any Rails Array method.
   # :first lists the first message for each field.
@@ -32,13 +32,13 @@ SimpleForm.setup do |config|
   # add validation classes to `input_field`
   config.input_field_error_class = 'border-red-500'
   config.input_field_valid_class = 'border-green-400'
-  config.label_class = ''
+  # config.label_class = ''
 
 
   # vertical forms
   #
   # vertical default_wrapper
-  config.wrappers :vertical_form, tag: 'div', class: 'form-control w-full max-w-xs' do |b|
+  config.wrappers :vertical_form, tag: 'div', class: 'form-control w-full max-w-md mb-2' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -46,9 +46,9 @@ SimpleForm.setup do |config|
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
-    b.use :label, class: 'label', error_class: 'text-red-500'
-    b.use :input, class: 'input input-bordered w-full max-w-xs mb-2', error_class: 'border-red-500', valid_class: 'border-green-400'
-    b.use :full_error, wrap_with: { tag: 'p', class: 'mt-2 text-red-500 text-xs italic' }
+    b.use :label, class: 'label font-bold', error_class: 'text-red-500'
+    b.use :input, class: 'input input-bordered w-full max-w-md', error_class: 'border-red-500', valid_class: 'border-green-400'
+    b.use :full_error, wrap_with: { tag: 'p', class: 'text-red-500 text-xs italic' }
     b.use :hint, wrap_with: { tag: 'p', class: 'mt-2 text-grey-700 text-xs italic' }
   end
 

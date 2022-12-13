@@ -1,0 +1,10 @@
+<%= turbo_frame_tag :modal do %>
+	<%= render ModalComponent.new(auto: true) do |c| %>
+		<h2><%= appointment_type.title %></h2>
+		<p><%= appointment_type.description %></p>
+		<div><%= appointment_type.location %></div>
+		<div><%= appointment_type.duration %> min</div>
+
+		<% c.with_button_delete(path: dashboard_appointment_type_path(id: appointment_type.id, calendar_id: @calendar.id)).with_content(t(".delete")) %>
+	<% end %>
+<% end %>

@@ -41,3 +41,8 @@ en:
       event:
         create: Book Appointment
         update: Update Appointment
+  activerecord:
+    errors:
+      models:
+        appointment_type:
+          exceed_allowed_number: Unfortunately, you have exceeded your appointment type allowance, upgrade to create more!

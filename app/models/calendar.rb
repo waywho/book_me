@@ -1,7 +1,7 @@
 class Calendar < ApplicationRecord
   belongs_to :user
-  has_many :calendar_appointment_types
-  has_many :appointment_types, through: :calendar_appointment_types
+  has_and_belongs_to_many :appointment_types
+  has_many :availabilities
 
   def self.providers
     %w[ google_oauth2 ].freeze
