@@ -20,3 +20,6 @@ two:
   # encrypted_password: password
   # provider: google
   # confirmed_at: 2.days.ago
+new_user:
+  email: "test_new@test.com"
+  confirmed_at: <%= 2.days.ago %>

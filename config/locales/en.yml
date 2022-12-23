@@ -30,18 +30,25 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  datetime:
-    format:
-      short: "%d/%m/%Y %I:%M %P"
+  shared:
+    availability_slot: Availability Slot
   time:
     formats:
-      short: "%I:%M %P"
+      short: "%d/%m/%Y %I:%M %P"
+      week_day: "%a"
+      short_date: "%d/%m/%Y"
+      short_time: "%I:%M %P"
   helpers:
     submit:
       event:
         create: Book Appointment
         update: Update Appointment
   activerecord:
+    attributes:
+      appointment_type:
+        indefinite_booking: Indefinitely
+        days_ahead_booking: Days
+        pause: Deactivate booking
     errors:
       models:
         appointment_type:

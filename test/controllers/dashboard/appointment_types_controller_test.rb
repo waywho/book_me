@@ -19,10 +19,13 @@ class Dashboard::AppointmentTypesControllerTest < ActionDispatch::IntegrationTes
   end
 
   test "should create appointment_type" do
+    user = users(:new_user)
+    sign_in user
+    calendar = calendars(:new_user)
     assert_difference("AppointmentType.count") do
-      post dashboard_appointment_types_url(calendar_id: @calendar.id),
+      post dashboard_appointment_types_url(calendar_id: calendar.id),
         params: { appointment_type: {
-          user_id: @user.id,
+          user_id: user.id,
           title: "TEST",
           description: "Great Appointment",
           location: "This Place",
@@ -30,16 +33,11 @@ class Dashboard::AppointmentTypesControllerTest < ActionDispatch::IntegrationTes
         } }
     end
 
-    assert_redirected_to dashboard_appointment_type_url(AppointmentType.last, calendar_id: @calendar.id)
+    assert_redirected_to dashboard_appointment_type_url(AppointmentType.last)
   end
 
   test "should show appointment_type" do
     get dashboard_appointment_type_url(@appointment_type, calendar_id: @calendar.id)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_dashboard_appointment_type_url(@appointment_type, calendar_id: @calendar.id)
     assert_response :success
   end
 

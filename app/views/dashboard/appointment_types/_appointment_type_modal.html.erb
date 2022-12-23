@@ -5,6 +5,17 @@
 		<div><%= appointment_type.location %></div>
 		<div><%= appointment_type.duration %> min</div>
 
-		<% c.with_button_delete(path: dashboard_appointment_type_path(id: appointment_type.id, calendar_id: @calendar.id)).with_content(t(".delete")) %>
+		<%= render appointment_type.availability_template if appointment_type.availability_template %>
+
+		<% c.with_button_delete(path: dashboard_appointment_type_path(id: appointment_type.id)).with_content(t(".delete")) %>
+		<% unless appointment_type.availability_template %>
+			<% c.with_button_primary(
+				path: [
+						:new,
+						:dashboard,
+						appointment_type,
+						:availability_template
+					]).with_content(t(".create_availabilities")) %>
+		<% end %>
 	<% end %>
 <% end %>

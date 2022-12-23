@@ -7,7 +7,9 @@ en:
       show:
         google_oauth2: Google Calendar
         primary: Primary
+        or: OR
     appointment_types:
       appointment_type_modal:
         delete: Delete
+        create_availabilities: Add availabilities
 

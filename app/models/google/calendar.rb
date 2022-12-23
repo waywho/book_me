@@ -7,16 +7,16 @@ class Google::Calendar
   end
 
   def primary_calendar
-    [get_calendar]
+    get_calendar
   end
 
   def calendars
     get_calendars.items
   end
 
-  def events
-    get_events.items.map do |event|
-      Google::Event.new(event: event)
+  def events(q: nil)
+    get_events(q: q).items.map do |event|
+      Google::EventItem.new(event: event)
     end
   end
 
@@ -34,6 +34,10 @@ class Google::Calendar
 
   def get_events(q: nil)
     client.list_events(calendar, q: q, page_token: nil)
+  end
+
+  def add_event(event)
+    client.insert_event(calendar, event)
   end
 
   private

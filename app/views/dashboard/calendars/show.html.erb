@@ -1,12 +1,24 @@
-<h1><%= t(".#{@calendar.provider}") %>: <%= t(".primary") if @calendar.primary %> </h1>
-
-<%= link_to "Appointment Types", dashboard_appointment_types_path(calendar_id: @calendar.id), class: 'btn btn-outline' %>
-
-<%= @calendar.summary %>
-<%= @calendar.time_zone %>
+<h1><%= t(".#{Current.calendar.provider}") %>: <%= t(".primary") if Current.calendar.primary %> </h1>
+<%= Current.calendar.time_zone %>
+<%#= Current.calendar.summary %>
 <br />
-<% @calendar_service.events.each do |event| %>
-  <%= render EventComponent.new(event: event) %>
-<% end %>
 
+<div class="md:flex md:gap-4" data-controller="toggle">
+  <div class="mt-6 tabs tabs-boxed md:flex-col md:flex-none">
+    <%= link_to "Appointment", dashboard_appointment_type_path(@appointment_type), class: 'tab tab-lg tab-active', "data-turbo-frame": dom_id(@appointment_type), "data-action": "toggle#toggleVisibility", "data-target-id": "appointment_types" %>
+    <%= link_to "Availabilities", [:dashboard, @appointment_type, :availabilities], class: 'tab tab-lg tab-lift4d', "data-turbo-frame": "availabilities", "data-action": "toggle#toggleVisibility", "data-target-id": "availabilities" %>
+  </div>
 
+  <div id="appointment_types" class="w-full md:flex-1 data-[toggle=hide]:hidden" data-toggle="show">
+    <% if @appointment_type %>
+      <%= turbo_frame_tag dom_id(@appointment_type), src: dashboard_appointment_type_path(@appointment_type) do %>
+      <% end %>
+    <% else %>
+      <%= turbo_frame_tag :new_appointment_type, src: [:new, :dashboard, :appointment_type ] do %>
+      <% end %>
+    <% end %>
+  </div>
+  <%= turbo_frame_tag :availabilities, src: [:dashboard, @appointment_type, :availabilities], class: "w-full md:flex-1 data-[toggle=hide]:hidden", loading: "lazy", "data-toggle": "hide" do %>
+    loading...
+  <% end %>
+</div>

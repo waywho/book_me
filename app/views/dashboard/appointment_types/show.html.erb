@@ -1,8 +1,7 @@
-<%= render @appointment_type %>
+<%= turbo_frame_tag dom_id(@appointment_type) do %>
+  <%= render "form", appointment_type: @appointment_type, calendar: @calendar %>
 
-<div>
-  <%= link_to "Edit this appointment type", edit_dashboard_appointment_type_path(@appointment_type) %> |
-  <%= link_to "Back to appointment types", dashboard_appointment_types_path %>
-
-  <%= button_to "Destroy this appointment type", [:dashboard, @appointment_type], method: :delete %>
-</div>
+  <div>
+    <%= button_to "Destroy this appointment type", [:dashboard, @appointment_type], method: :delete %>
+  </div>
+<% end %>

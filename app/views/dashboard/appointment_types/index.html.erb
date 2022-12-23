@@ -2,15 +2,15 @@
   <h1>Appointment Types</h1>
   <% if current_user.reached_limit? %>
     <div class="tooltip" data-tip="You have exceeded allowed appointment types, please upgrade to create more!">
-      <%= link_to "New appointment type", new_dashboard_appointment_type_path(calendar_id: @calendar.id), class: "btn btn-outline ", disabled: true %>
+      <%= link_to "New appointment type", new_dashboard_appointment_type_path, class: "btn btn-outline ", disabled: true %>
     </div>
   <% end %>
 </div>
 
 <div class="flex mt-10">
   <% unless current_user.reached_limit? %>
-    <%= turbo_frame_tag :new_appointment_type, class: "w-1/2", src: new_dashboard_appointment_type_path(calendar_id: @calendar.id) do %>
-      <%#= link_to "New appointment type", new_dashboard_appointment_type_path(calendar_id: @calendar.id), class: "btn btn-outline" %>
+    <%= turbo_frame_tag :new_appointment_type, class: "w-1/2", src: new_dashboard_appointment_type_path do %>
+      <%#= link_to "New appointment type", new_dashboard_appointment_type_path, class: "btn btn-outline" %>
     <% end %>
   <% end %>
 

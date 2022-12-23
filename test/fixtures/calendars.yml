@@ -8,6 +8,7 @@ one:
   description: String
   etag: String
   primary: true
+  appointment_types: one
 
 two:
   user: two
@@ -17,3 +18,14 @@ two:
   description: String
   etag: String
   primary: true
+  appointment_types: two
+
+new_user:
+  user: new_user
+  identifier: MyString
+  time_zone: MyString
+  summary: MyString
+  description: String
+  etag: String
+  primary: true
+  appointment_types: two

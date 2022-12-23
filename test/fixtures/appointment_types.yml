@@ -6,6 +6,7 @@ one:
   location: MyString
   duration: 1
   user: one
+  calendars: one
 
 two:
   title: MyString
@@ -13,3 +14,4 @@ two:
   location: MyString
   duration: 1
   user: two
+  calendars: two

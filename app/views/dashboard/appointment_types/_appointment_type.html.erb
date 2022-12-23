@@ -1,5 +1,5 @@
 <div id="<%= dom_id appointment_type %>" class="card w-96 bg-base-100 shadow-xl mb-8 transition ease-in-out hover:scale-110">
-	<%= link_to dashboard_appointment_type_path(id: appointment_type.id, calendar_id: @calendar.id), "data-turbo-stream": "" do %>
+	<%= link_to dashboard_appointment_type_path(id: appointment_type.id), "data-turbo-stream": "" do %>
 		<div class="card-body">
 			<h2 class="card-title"><%= appointment_type.title %></h2>
 			<p><%= appointment_type.description %></p>

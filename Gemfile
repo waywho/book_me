@@ -42,6 +42,8 @@ gem "omniauth-rails_csrf_protection"
 # http
 gem "net-http"
 
+# randome word generator
+gem "spicy-proton"
 
 # ViewComponent
 gem "view_component"

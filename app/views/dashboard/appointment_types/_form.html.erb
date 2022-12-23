@@ -1,11 +1,22 @@
-<%= simple_form_for [:dashboard, appointment_type], html: { id: "appointment_type_form" } do |f| %>
+<h2>Appointment Type</h2>
+
+<p>What can your client book?</p>
+
+<%= simple_form_for [:dashboard, appointment_type], url: [:dashboard, appointment_type], html: { id: "appointment_type_form", "data-controller": "toggle"  } do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
+    <%= f.input :pause, input_html: { class: "toggle" } %>
     <%= f.input :title %>
     <%= f.input :description %>
     <%= f.input :location %>
     <%= f.input :duration, label: "Duration (minutes)" %>
+
+    <h3 class="font-bold my-4"><%= t(".book_ahead") %></h3>
+
+    <%= f.input :days_ahead_booking, input_html: { "data-toggle-target": "toggleInput" } %>
+    <label class="font-bold my-4"><%= t(".or") %></label>
+    <%= f.input :indefinite_booking, input_html: { class: "toggle", "data-action": "click->toggle#toggleDisable" } %>
   </div>
 
   <div class="form-actions">

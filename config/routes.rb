@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   namespace :dashboard do
-    get "/", to: "calendars#index", as: :dashboard
+    get "/", to: "calendars#index"
     resource :calendar, only: %i[index show create destroy]
-    scope "calendar/:calendar_id" do
-      resources :appointment_types
-      resources :availabilities
+    scope "calendar/" do
+      resources :appointment_types, except: :edit do
+        get :availabilities, to: "availability#index"
+        get :insert_availability_template, to: "availability#insert_template"
+      end
     end
   end
 

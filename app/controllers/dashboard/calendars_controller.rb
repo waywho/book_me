@@ -1,20 +1,21 @@
-class Dashboard::CalendarsController < ApplicationController
+class Dashboard::CalendarsController < DashboardController
   before_action :authenticate_user!
-  before_action :set_calendar, only: %i[ show edit update destroy ]
-  before_action :set_calendar_service
+  skip_before_action :set_current_calendar, only: :index
 
   def index
-    @external_calendars = @calendar_service.primary_calendar
-    @calendars = current_user.calendars
+    @external_calendar = calendar_service.primary_calendar
+    calendars = current_user.calendars
+    @connected_calendar = calendars.find_by(identifier: @external_calendar.id)
   end
 
   # GET /user/calendars/1
   def show
+    @appointment_type = Current.calendar.appointment_types.first
   end
 
   # POST /user/calendars
   def create
-    google_calendar = @calendar_service.get_calendar_list(params[:id])
+    google_calendar = calendar_service.get_calendar_list(params[:id])
 
     @calendar = current_user.calendars.where(identifier: google_calendar.id).first_or_create do |calendar|
       calendar.provider = "google_oauth2"
@@ -44,22 +45,7 @@ class Dashboard::CalendarsController < ApplicationController
 
   # DELETE /user/calendars/1
   def destroy
-    @calendar.destroy
+    Current.calendar.destroy
     redirect_to user_calendars_url, notice: "Calendar was successfully destroyed."
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_calendar_service
-      @calendar_service ||= Google::Calendar.new(user: current_user)
-    end
-
-    def set_calendar
-      @calendar = Calendar.find(params[:id])
-    end
-
-    # # Only allow a list of trusted parameters through.
-    # def calendar_params
-    #   params.fetch(:user_calendar, {})
-    # end
 end
