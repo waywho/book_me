@@ -1,9 +1,28 @@
 en:
   dashboard:
+    dashboard_wizard:
+      connect_calendar:
+        connect_calendar: Connect to your %{name} calendar
+      set_availabilities:
+        set_availability_instruction_html:
+          "<p>We have inserted a sample availability slot in your %{calendar_name} calendar.</p>\
+           <br />
+           <p>You can add more availability slots in your calendar. Just make sure that you
+          include the unique availability identifier: <br /><br /><b>'%{identifier}'</b><br /><br /> \
+          in the summary of your calendar events.</p>
+          <br />
+          <br />
+          <p>Once you are done, you can click the button below to retrieve availabilities set in your calendar.</p>\
+          <p>The availabilities will be automatically refreshed for people who wants to book appointments in \
+          your calendar.</p>"
+      retrieve_availabilities:
+        retrieve_availabilities: Retrieve Availabilities
+        complete: Complete Onboarding
+        your_availabilities: Your Availabilities
     calendars:
       index:
         primary_calendar: Go to Google Calendar
-        connect_calendars: Connect to {%name} calendar
+        connect_calendar: Connect to your %{name} calendar
       show:
         google_oauth2: Google Calendar
         primary: Primary
@@ -12,4 +31,6 @@ en:
       appointment_type_modal:
         delete: Delete
         create_availabilities: Add availabilities
-
+      availability_identifier_form:
+        retrieve_availabilities: Retrieve Availabilities
+        insert_availability_slot: Insert Sample Availability Slot

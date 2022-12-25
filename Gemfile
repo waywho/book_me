@@ -71,6 +71,9 @@ gem 'devise'
 # friendly id
 gem 'friendly_id'
 
+# Step by Step Wizard
+gem 'wicked'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

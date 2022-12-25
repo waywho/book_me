@@ -1,0 +1,7 @@
+<%= render "steps" %>
+
+<div class="flex justify-center pt-20">
+	<div>
+		<%= render "dashboard/appointment_types/form", path: dashboard_onboarding_path(id: :appointment_type), submit_method: :put, appointment_type: @appointment_type %>
+	</div>
+</div>

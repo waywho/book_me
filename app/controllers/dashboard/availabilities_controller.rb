@@ -1,4 +1,4 @@
-class Dashboard::AvailabilityController < DashboardController
+class Dashboard::AvailabilitiesController < DashboardController
   include CalendarSetter
 
   before_action :set_appointment_type
@@ -19,12 +19,15 @@ class Dashboard::AvailabilityController < DashboardController
 
   def insert_template
     AddAvailabilityToGoolgeCalendarJob.perform_later(
-      calendar_id: @calendar.id,
+      calendar_id: @appointment_type.calendar.id,
       appointment_type: @appointment_type.id,
       user_id: current_user.id,
       test: true
     )
 
-    redirect_to [:dashboard, :appointment_types, calendar_id: @calendar.id], notice: "Availability template for #{@appointment_type.title} will be shortly added to your calendar."
+    respond_to do |format|
+
+      format.html { redirect_to [:dashboard, :appointment_types, calendar_id: @calendar.id], notice: "Availability template for #{@appointment_type.title} will be shortly added to your calendar." }
+    end
   end
 end

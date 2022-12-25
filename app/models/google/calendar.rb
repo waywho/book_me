@@ -28,8 +28,8 @@ class Google::Calendar
     client.list_calendar_lists
   end
 
-  def get_calendar
-    client.get_calendar(calendar)
+  def get_calendar(calendar_id = nil)
+    client.get_calendar(calendar_id || calendar)
   end
 
   def get_events(q: nil)

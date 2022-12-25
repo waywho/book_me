@@ -1,0 +1,5 @@
+<%= render "steps" %>
+
+<div class="flex justify-center pt-20">
+	<%= button_to t(".connect_calendar", name: "Google"), dashboard_onboarding_path(id: :connect_calendar, calendar_id: @external_calendar.id), method: :put, class: "btn btn-outline btn-secondary mb-4" %>
+</div>

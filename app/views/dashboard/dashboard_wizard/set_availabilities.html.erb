@@ -1,0 +1,7 @@
+<%= render "steps" %>
+
+<div class="text-center p-20">
+	<%= t('.set_availability_instruction_html', calendar_name: "Google", identifier: @appointment_type.availability_identifier) %>
+
+	<%= link_to t(".retrieve_availabilities"), next_wizard_path, class: "btn btn-primary mt-16" %>
+</div>

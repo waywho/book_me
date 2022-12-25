@@ -2,7 +2,7 @@
 
 <p>What can your client book?</p>
 
-<%= simple_form_for [:dashboard, appointment_type], url: [:dashboard, appointment_type], html: { id: "appointment_type_form", "data-controller": "toggle"  } do |f| %>
+<%= simple_form_for [:dashboard, appointment_type], method: local_assigns[:submit_method] || :post, url: local_assigns[:path] || [:dashboard, appointment_type], html: { id: "appointment_type_form", "data-controller": "toggle"  } do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
@@ -11,7 +11,7 @@
     <%= f.input :description %>
     <%= f.input :location %>
     <%= f.input :duration, label: "Duration (minutes)" %>
-
+    <%= f.input :availability_identifier %>
     <h3 class="font-bold my-4"><%= t(".book_ahead") %></h3>
 
     <%= f.input :days_ahead_booking, input_html: { "data-toggle-target": "toggleInput" } %>

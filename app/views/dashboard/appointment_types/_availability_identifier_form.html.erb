@@ -1,0 +1,4 @@
+<%= simple_form_for [:dashboard, @appointment_type], method: :put, url: path || [:dashboard, @appointment_type], html: { data: { controller: "link-submit", action: "ajax:success->remote-form#onPostSuccess" } } do |f| %>
+	<%= f.input :availability_identifier %>
+	<%= f.button :submit, t(".retrieve_availabilities") %>
+<% end %>

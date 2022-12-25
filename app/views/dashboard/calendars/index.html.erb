@@ -5,6 +5,7 @@
 <% if @connected_calendar %>
   <%= link_to t(".primary_calendar"), dashboard_calendar_path(calendar_id: @connected_calendar), class: "btn btn-primary mb-4" %>
 <% else %>
-  <%= button_to t(".connect_calendars", name: @external_calendar.summary), google_calendars_path(id: @external_calendar.id), class: "btn btn-outline btn-secondary mb-4" %>
+  <%= button_to t(".connect_calendars", name: @external_calendar.summary), google_calendars_path(calendar_id: @external_calendar.id), class: "btn btn-outline btn-secondary mb-4" %>
 <% end %>
 
+<%= link_to 'onboarding', dashboard_onboarding_path(id: :connect_calendar) %>

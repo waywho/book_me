@@ -1,0 +1,9 @@
+<%= render "steps" %>
+<div class="flex flex-col justify-center pt-20">
+	<%= link_to t(".complete"), next_wizard_path, class: "btn btn-primary mb-8" %>
+
+	<h1><%= t(".your_availabilities") %></h1>
+	<% @availabilities.each do |availability| %>
+			<%= render EventComponent.new(event: availability, width: :full) %>
+		<% end %>
+</div>

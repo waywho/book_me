@@ -1,0 +1,2 @@
+module Dashboard::DashboardWizardHelper
+end
