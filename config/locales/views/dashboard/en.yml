@@ -27,6 +27,14 @@ en:
         google_oauth2: Google Calendar
         primary: Primary
         or: OR
+        calendar: Calendar
+        appointment_type: Appointment
+        availabilities: Availabilities
+        calendar_settings: Calendar Settings
+        people_can_book: "People can book appointments with you at:"
+    availabilities:
+      index:
+        identifier: Unique identifier for your Availability Slot
     appointment_types:
       appointment_type_modal:
         delete: Delete

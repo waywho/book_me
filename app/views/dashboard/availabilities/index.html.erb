@@ -1,11 +1,8 @@
 <%= turbo_frame_tag :availabilities do %>
 	<h2>Availabilities</h2>
 
-	<%= simple_form_for [:dashboard, @appointment_type], url: [:dashboard, @appointment_type] do |f| %>
-		<%= f.input :availability_identifier %>
-		<%= f.button :submit, "Re-fetch Availabilities" %>
-	<% end %>
-
+	<%= t(".identifier") %>: <%= @appointment_type.availability_identifier %>
+	<br />
 	<div id="availabilities">
 		<% @availabilities.each do |availability| %>
 			<%= render EventComponent.new(event: availability, width: :full) %>

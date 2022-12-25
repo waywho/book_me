@@ -3,13 +3,24 @@
 <%#= Current.calendar.summary %>
 <br />
 
-<div class="md:flex md:gap-4" data-controller="toggle">
-  <div class="mt-6 tabs tabs-boxed md:flex-col md:flex-none">
-    <%= link_to "Appointment", dashboard_appointment_type_path(@appointment_type), class: 'tab tab-lg tab-active', "data-turbo-frame": dom_id(@appointment_type), "data-action": "toggle#toggleVisibility", "data-target-id": "appointment_types" %>
-    <%= link_to "Availabilities", [:dashboard, @appointment_type, :availabilities], class: 'tab tab-lg tab-lift4d', "data-turbo-frame": "availabilities", "data-action": "toggle#toggleVisibility", "data-target-id": "availabilities" %>
+<div class="md:flex md:gap-4 md:items-start" data-controller="toggle">
+  <div class="mt-6 tabs tabs-boxed md:flex md:flex-col ">
+    <%= link_to t(".calendar"), "", class: 'tab tab-lg tab-active w-full', "data-turbo-frame": "calendar", "data-action": "toggle#toggleVisibility", "data-target-id": "calendar" %>
+    <%= link_to t(".appointment_type"), dashboard_appointment_type_path(@appointment_type), class: 'tab tab-lg w-full', "data-turbo-frame": dom_id(@appointment_type), "data-action": "toggle#toggleVisibility", "data-target-id": "appointment_types" %>
+    <%= link_to t(".availabilities"), [:dashboard, @appointment_type, :availabilities], class: 'tab tab-lg w-full', "data-turbo-frame": "availabilities", "data-action": "toggle#toggleVisibility", "data-target-id": "availabilities" %>
   </div>
 
-  <div id="appointment_types" class="w-full md:flex-1 data-[toggle=hide]:hidden" data-toggle="show">
+  <%= turbo_frame_tag :calendar, class: "w-full md:flex-1 data-[toggle=hide]:hidden", "data-toggle": "show" do %>
+    <h2><%= t(".calendar_settings") %></h2>
+    <p><%= t(".people_can_book") %></p>
+    <div class="form-control">
+      <label class="input-group">
+        <span>https://www.timefixr.com/</span>
+        <input type="text" value="<%= Current.calendar.external_identifier %>" class="input input-bordered" disabled=<%= current_user.premium? %> />
+      </label>
+    </div>
+  <% end %>
+  <div id="appointment_types" class="w-full md:flex-1 data-[toggle=hide]:hidden" data-toggle="hide">
     <% if @appointment_type %>
       <%= turbo_frame_tag dom_id(@appointment_type), src: dashboard_appointment_type_path(@appointment_type) do %>
       <% end %>
