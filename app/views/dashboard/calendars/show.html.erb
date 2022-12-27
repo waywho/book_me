@@ -16,7 +16,7 @@
     <div class="form-control">
       <label class="input-group">
         <span>https://www.timefixr.com/</span>
-        <input type="text" value="<%= Current.calendar.external_identifier %>" class="input input-bordered" disabled=<%= current_user.premium? %> />
+        <input type="text" value="<%= Current.calendar.slug %>" class="input input-bordered" disabled=<%= current_user.premium? %> />
       </label>
     </div>
   <% end %>

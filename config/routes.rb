@@ -12,6 +12,12 @@ Rails.application.routes.draw do
     end
   end
 
+  scope "/:calendar_id" do
+    get "/", to: "appointments#index"
+  end
+
+  resources :calendar
+
   devise_for :users, controllers: { omniauth_callbacks: 'oauth/omniauth_callbacks' } do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
