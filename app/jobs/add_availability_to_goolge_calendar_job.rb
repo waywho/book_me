@@ -13,11 +13,11 @@ class AddAvailabilityToGoolgeCalendarJob < ApplicationJob
 
     template_hash = availability_template.merge(
       start: Google::Apis::CalendarV3::EventDateTime.new(
-        date_time: (DateTime.now.beginning_of_day + 9.hours).iso8601,
+        date_time: (Time.now.in_time_zone(primary_calendar.time_zone).at_beginning_of_day + 9.hours).iso8601,
         time_zone: ActiveSupport::TimeZone::MAPPING[Time.zone.name]
       ),
       end: Google::Apis::CalendarV3::EventDateTime.new(
-        date_time: (DateTime.now.beginning_of_day + 17.hours).iso8601,
+        date_time: (Time.now.in_time_zone(primary_calendar.time_zone).at_beginning_of_day + 17.hours).iso8601,
         time_zone: ActiveSupport::TimeZone::MAPPING[Time.zone.name]
       )
     )

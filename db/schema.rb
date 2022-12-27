@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_27_091519) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_27_110853) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -48,6 +48,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_27_091519) do
     t.string "etag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug"
+    t.index ["slug"], name: "index_calendars_on_slug", unique: true
     t.index ["user_id"], name: "index_calendars_on_user_id"
   end
 
@@ -67,6 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_27_091519) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "end_at"
+    t.string "time_zone"
     t.index ["appointment_type_id"], name: "index_events_on_appointment_type_id"
     t.index ["calendar_id"], name: "index_events_on_calendar_id"
     t.index ["user_id"], name: "index_events_on_user_id"

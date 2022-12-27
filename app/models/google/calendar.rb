@@ -7,7 +7,7 @@ class Google::Calendar
   end
 
   def primary_calendar
-    get_calendar
+    @primary_calendar ||= get_calendar
   end
 
   def calendars
@@ -25,15 +25,20 @@ class Google::Calendar
   end
 
   def get_calendars
-    client.list_calendar_lists
+    @calendars ||= client.list_calendar_lists
   end
 
   def get_calendar(calendar_id = nil)
     client.get_calendar(calendar_id || calendar)
   end
 
-  def get_events(q: nil)
-    client.list_events(calendar, q: q, page_token: nil)
+  def get_events(q: nil, from: nil, in_days: nil)
+    from =  Time.now.in_time_zone(primary_calendar.time_zone).at_beginning_of_day.iso8601
+    time_max = if in_days
+      (Time.new.in_time_zone(primary_calendar.time_zone) + in_days.days).at_end_of_day.iso8601
+    end
+
+    client.list_events(calendar, q: q, page_token: nil, time_min: from, time_max: time_max)
   end
 
   def add_event(event)

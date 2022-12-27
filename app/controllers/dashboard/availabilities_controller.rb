@@ -26,7 +26,6 @@ class Dashboard::AvailabilitiesController < DashboardController
     )
 
     respond_to do |format|
-
       format.html { redirect_to [:dashboard, :appointment_types, calendar_id: @calendar.id], notice: "Availability template for #{@appointment_type.title} will be shortly added to your calendar." }
     end
   end
