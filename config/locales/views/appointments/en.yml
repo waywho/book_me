@@ -1,0 +1,6 @@
+en:
+  appointments:
+    index:
+      book_appointments: Book Appointments with %{person}
+    new:
+      appt_with_user: "%{appt} with %{user}"

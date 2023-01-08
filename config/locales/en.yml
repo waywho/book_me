@@ -35,9 +35,17 @@ en:
   time:
     formats:
       short: "%d/%m/%Y %I:%M %P"
-      week_day: "%a"
+      weekday: "%a"
       short_date: "%d/%m/%Y"
       short_time: "%I:%M %P"
+      hour_sec: "%I:%M"
+  date:
+    formats:
+      weekday: "%a"
+      date: "%d"
+      month: "%B"
+      year: "%Y"
+      hour_sec: "%I:%M"
   helpers:
     submit:
       event:
@@ -45,6 +53,9 @@ en:
         update: Update Appointment
   activerecord:
     attributes:
+      appointment:
+        creator_name: Your name
+        creator_email: Your email
       appointment_type:
         indefinite_booking: Indefinitely
         days_ahead_booking: Days
