@@ -74,6 +74,11 @@ gem 'friendly_id'
 # Step by Step Wizard
 gem 'wicked'
 
+# Local time
+gem 'local_time'
+
+gem 'http_accept_language'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

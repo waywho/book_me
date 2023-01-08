@@ -3,8 +3,8 @@
 
 import { application } from "../javascript/controllers/application"
 
-import EventComponent__EventComponentController from "./event_component/event_component_controller"
-application.register("event-component--event-component", EventComponent__EventComponentController)
+import EventComponentController from "./event_component/event_component_controller"
+application.register("event-component", EventComponentController)
 
-import ModalComponent__ModalComponentController from "./modal_component/modal_component_controller"
-application.register("modal-component--modal-component", ModalComponent__ModalComponentController)
+import ModalComponentController from "./modal_component/modal_component_controller"
+application.register("modal-component", ModalComponentController)
