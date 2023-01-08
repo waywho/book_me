@@ -8,13 +8,7 @@ class Dashboard::AvailabilitiesController < DashboardController
   end
 
   def create
-    availability_template = appointment_type.availability_template
-    AddAvailabilityToGoolgeCalendarJob.perform_later(
-      calendar_id: @calendar.id,
-      availability_template_id: availability_template.id,
-      user_id: current_user.id,
-      test: true
-    )
+
   end
 
   def insert_template

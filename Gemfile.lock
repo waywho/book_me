@@ -133,6 +133,7 @@ GEM
     hashie (5.0.0)
     htmlbeautifier (1.4.2)
     htmlentities (4.3.4)
+    http_accept_language (2.1.1)
     httpclient (2.8.3)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
@@ -149,6 +150,7 @@ GEM
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    local_time (2.1.0)
     loofah (2.19.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -357,8 +359,10 @@ DEPENDENCIES
   foreman
   friendly_id
   google-apis-calendar_v3
+  http_accept_language
   jsbundling-rails
   letter_opener
+  local_time
   lookbook (>= 1.0.7)
   net-http
   omniauth

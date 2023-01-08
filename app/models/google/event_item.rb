@@ -1,4 +1,4 @@
-class Google::EventItem
+class Google::EventItem < Event::Base
   attr_reader :event, :title, :creator_name, :creator_email, :start_at, :end_at, :start_date, :end_date
   delegate :description, :location, to: :event
 

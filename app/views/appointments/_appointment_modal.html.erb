@@ -1,0 +1,17 @@
+<%= turbo_frame_tag :modal do %>
+	<%= simple_form_for @appointment do |f| %>
+
+
+
+
+
+		<% c.with_button_primary(
+			path: [
+					:new,
+					:dashboard,
+					appointment,
+					:availability_template
+				]).with_content(t(".create_availabilities")) %>
+
+	<% end %>
+<% end %>

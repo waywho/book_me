@@ -4,7 +4,7 @@ class Calendar < ApplicationRecord
   has_many :availability_templates
 
   extend FriendlyId
-  friendly_id :user_name, use: :slugged
+  friendly_id :slug_candidates, use: :slugged
 
   attribute :premium_user_name
 
@@ -16,10 +16,11 @@ class Calendar < ApplicationRecord
 
   private
 
-  # allow premium user to enter their own external identifier
-  def user_name
-    return premium_user_name if user.premium? && premium_user_name.present?
-
-    "#{user.first_name} #{user.last_name}"
+  def slug_candidates
+   return premium_user_name if user.premium? && premium_user_name.present?
+    [
+      "#{user.first_name}#{user.last_name}",
+      "#{user.first_name} #{user.last_name}"
+    ]
   end
 end

@@ -3,11 +3,15 @@ class AppointmentType < ApplicationRecord
   belongs_to :user
   has_and_belongs_to_many :calendars
   has_many :events, dependent: :nullify
+  has_many :appointments, dependent: :nullify
 
   # Validations
   validate :user_limits, on: :create
   validates :title, presence: true
   validates :duration, numericality: true, presence: true
+
+  extend FriendlyId
+  friendly_id :title, :use => :scoped, :scope => :user
 
   after_initialize :generate_identifier
 

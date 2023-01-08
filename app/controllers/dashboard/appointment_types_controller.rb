@@ -96,7 +96,7 @@ class Dashboard::AppointmentTypesController < DashboardController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_appointment_type
-      @appointment_type = Current.calendar.appointment_types.find(params[:id])
+      @appointment_type = Current.calendar.appointment_types.friendly.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

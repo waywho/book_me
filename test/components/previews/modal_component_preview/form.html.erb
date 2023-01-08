@@ -1,0 +1,13 @@
+<%= render ModalComponent.new(auto: true) do |c| %>
+	<%= simple_form_for appointment, url: appointments_path(calendar: Calendar.last) do |f| %>
+		<h3><%= t("appointments.new.appt_with_user", appt: f.object.title , user: appointment.appointment_type.user.full_name) %></h3>
+		<p><%= f.object.description %></p>
+		<p><%= l f.object.start_at, format: :short %></p>
+		<%= f.hidden_field :start_at %>
+		<%= f.input :creator_name %>
+		<%= f.input :creator_email %>
+
+		<% c.with_button_alert(path: "").with_content("cancel") %>
+		<% c.with_button_primary(path: "").with_content("save") %>
+	<% end %>
+<% end %>

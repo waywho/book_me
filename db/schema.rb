@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_27_110853) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_27_222204) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -27,6 +27,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_27_110853) do
     t.boolean "indefinite_booking"
     t.integer "days_ahead_booking"
     t.boolean "pause"
+    t.string "slug"
+    t.index ["slug"], name: "index_appointment_types_on_slug", unique: true
     t.index ["user_id"], name: "index_appointment_types_on_user_id"
   end
 
