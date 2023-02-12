@@ -131,6 +131,7 @@ GEM
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
     hashie (5.0.0)
+    hiredis (0.6.3)
     htmlbeautifier (1.4.2)
     htmlentities (4.3.4)
     http_accept_language (2.1.1)
@@ -359,6 +360,7 @@ DEPENDENCIES
   foreman
   friendly_id
   google-apis-calendar_v3
+  hiredis
   http_accept_language
   jsbundling-rails
   letter_opener

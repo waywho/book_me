@@ -1,8 +1,6 @@
 <h2><%= @appointment_type.title %></h2>
 <p><%= @appointment_type.description %></p>
 
-<div id="availabilities" class="mt-8">
-	<% @availabilities.each do |availability| %>
-		<%= render EventComponent.new(event: availability, width: :full) %>
-	<% end %>
+<div id="availabilities" class="mt-8 max-h-[600px] overflow-y-scroll px-6">
+	<%= render(CalendarComponent.new(availabilities: @availabilities, appt_type: @appointment_type)) %>
 </div>

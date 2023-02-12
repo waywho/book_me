@@ -31,4 +31,8 @@ class AppointmentsController < ApplicationController
   def calendar_service
     @calendar_service ||= Google::Calendar.new(user: @calendar.user)
   end
+
+  def appointment_params
+    params.require(:appointment).permit(:start_at)
+  end
 end

@@ -1,6 +1,6 @@
 class Appointment < Event
   after_initialize :dup_from_appointment_type
-  validates :creator_email, :creator_name, presence: true
+  validates :creator_email, :creator_name, :start_at, presence: true
 
   private
 
@@ -9,5 +9,6 @@ class Appointment < Event
 
     self.title = appointment_type.title
     self.description = appointment_type.description
+    self.end_at = start_at + appointment_type.duration.minutes
   end
 end

@@ -1,4 +1,4 @@
-module Event
+module Events
   class Base
     def event
       raise NotImplementedError

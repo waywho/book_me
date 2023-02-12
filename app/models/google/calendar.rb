@@ -38,7 +38,9 @@ class Google::Calendar
       (Time.new.in_time_zone(primary_calendar.time_zone) + in_days.days).at_end_of_day.iso8601
     end
 
-    client.list_events(calendar, q: q, page_token: nil, time_min: from, time_max: time_max)
+    # Rails.cache.fetch("google-calendar-#{q.underscore}", expires_in: 1.hour) do
+      client.list_events(calendar, q: q, page_token: nil, time_min: from, time_max: time_max)
+    # end
   end
 
   def add_event(event)

@@ -47,7 +47,7 @@ class CalendarComponent < ViewComponent::Base
   def availability_date(date)
     return unless availabilities
 
-    availabilities.find { |a| a.start_date.to_date == date.to_date }
+    availabilities.find { |a| a.start_date == date }
   end
 
   def availability_start_minutes(avail_date)
@@ -67,7 +67,6 @@ class CalendarComponent < ViewComponent::Base
 
     row_num.times.each_with_object([]) do |n, a|
       time = l availability_date.start_at.advance(minutes: (appointment_type.duration * n)), format: :short_time
-
 
       a << [row_start + (n * appointment_type.duration) + 1, time]
     end
