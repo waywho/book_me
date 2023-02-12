@@ -17,13 +17,14 @@ class CalendarComponent < ViewComponent::Base
       end
     end
 
-  def initialize(current_date: nil, time_zone: nil, max_period: 30, availabilities: nil, appt_type: nil)
+  def initialize(current_date: nil, time_zone: nil, max_period: 30, availabilities: nil, appt_type: nil, new_appointment_url: "")
     @current_date = current_date || Time.now.in_time_zone(time_zone)
     @time_zone = time_zone
     @max_period = max_period
     @end_booking_date = @current_date + max_period.days
     @availabilities = availabilities
     @appointment_type = appt_type
+    @new_appointment_url = new_appointment_url
   end
 
   def days
@@ -66,9 +67,7 @@ class CalendarComponent < ViewComponent::Base
     row_start = (availability_start_minutes(availability_date) - day_start_minutes).to_i
 
     row_num.times.each_with_object([]) do |n, a|
-      time = l availability_date.start_at.advance(minutes: (appointment_type.duration * n)), format: :short_time
-
-      a << [row_start + (n * appointment_type.duration) + 1, time]
+      a << [row_start + (n * appointment_type.duration) + 1, availability_date.start_at.advance(minutes: (appointment_type.duration * n))]
     end
   end
 
@@ -79,6 +78,21 @@ class CalendarComponent < ViewComponent::Base
   end
 
   private
+
+  def slot_label(datetime)
+    l datetime, format: :short_time
+  end
+
+  def appointment_link(start_at)
+    return @new_appointment_url if @new_appointment_url.blank?
+
+    url = Addressable::URI.parse(@new_appointment_url)
+    url.query_values = (url.query_values || {}).merge({
+      start_at: start_at
+    })
+
+    url.to_s
+  end
 
   def day_css(with_availability_date = nil)
     bg_css = (with_availability_date ? "bg-white grid" : "bg-slate-200")

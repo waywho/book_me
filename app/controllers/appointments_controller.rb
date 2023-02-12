@@ -7,7 +7,13 @@ class AppointmentsController < ApplicationController
   end
 
   def new
-    @appointment = Appointment.new
+    @appointment = @calendar.appointments.new(appointment_type: @appointment_type, start_at: params[:start_at].to_datetime)
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(:modal, partial: "appointments/appointment_modal", locals: { appointment: @appointment })
+      end
+    end
   end
 
   def show
@@ -15,6 +21,24 @@ class AppointmentsController < ApplicationController
       @availabilities = calendar_service.events(q: @appointment_type.availability_identifier)
     else
       render :appointment_not_availabile
+    end
+  end
+
+  def create
+    @appointment = @calendar.appointments.new({ appointment_type: @appointment_type }.merge(appointment_params))
+
+    if @appointment.save
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(:modal_content, partial: "appointments/create", locals: { appointment: @appointment })
+        end
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(:modal, partial: "appointments/appointment_modal", locals: { appointment: @appointment })
+        end
+      end
     end
   end
 
@@ -33,6 +57,6 @@ class AppointmentsController < ApplicationController
   end
 
   def appointment_params
-    params.require(:appointment).permit(:start_at)
+    params.require(:appointment).permit(:start_at, :creator_name, :creator_email)
   end
 end

@@ -2,6 +2,7 @@ class Calendar < ApplicationRecord
   belongs_to :user
   has_and_belongs_to_many :appointment_types
   has_many :availability_templates
+  has_many :appointments
 
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged

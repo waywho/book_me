@@ -14,10 +14,11 @@ class ModalComponent < ViewComponent::Base
   }
 
   class ButtonComponent < ViewComponent::Base
-    def initialize(type: 'primary', path: nil, action: nil)
+    def initialize(type: 'primary', path: nil, action: nil, form: nil)
       @type = type
       @path = path
       @action = action
+      @form = form
     end
 
     def call

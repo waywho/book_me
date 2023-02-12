@@ -46,6 +46,9 @@ en:
       month: "%B"
       year: "%Y"
       hour_sec: "%I:%M"
+  datetime:
+    formats:
+      short: "%d/%m/%Y %I:%M %P"
   helpers:
     submit:
       event:

@@ -1,17 +1,17 @@
 <%= turbo_frame_tag :modal do %>
-	<%= simple_form_for @appointment do |f| %>
-
-
-
-
-
-		<% c.with_button_primary(
-			path: [
-					:new,
-					:dashboard,
-					appointment,
-					:availability_template
-				]).with_content(t(".create_availabilities")) %>
-
+	<%= render ModalComponent.new(auto: true) do |c| %>
+		<div id="modal_content">
+			<%= simple_form_for appointment, url: appointments_path(id: @appointment_type, calendar: @calendar), method: :post do |f| %>
+				<h3><%= t("appt_with_person", appt: f.object.appointment_type.title , person: f.object.appointment_type.user.full_name) %></h3>
+				<p><%= f.object.description %></p>
+				<div><%= appointment.location %></div>
+				<p><%= l f.object.start_at, format: :short %></p>
+				<%= f.hidden_field :start_at %>
+				<%= f.input :creator_name %>
+				<%= f.input :creator_email %>
+				<%= f.submit t(".confirm_appointment"), class: "mt-4 btn btn-primary" %>
+				<%# c.with_button_primary.with_content(t("confirm_appointment")) %>
+			<% end %>
+		</div>
 	<% end %>
 <% end %>
