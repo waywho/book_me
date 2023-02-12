@@ -7,7 +7,7 @@ class EventComponent < ViewComponent::Base
   end
 
   def date
-    "#{l @event.start_at, format: :week_day} #{l @event.start_at, format: :short_date}"
+    "#{l @event.start_at, format: :weekday} #{l @event.start_at, format: :short_date}"
   end
 
   def time_period

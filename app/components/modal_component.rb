@@ -29,7 +29,8 @@ class ModalComponent < ViewComponent::Base
     end
   end
 
-  def initialize(auto: false)
+  def initialize(auto: false, modal: "my-modal")
     @auto = auto
+    @modal = modal
   end
 end

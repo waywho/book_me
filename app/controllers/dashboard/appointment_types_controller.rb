@@ -11,7 +11,7 @@ class Dashboard::AppointmentTypesController < DashboardController
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
-          turbo_stream.replace(:modal, partial: "dashboard/appointment_types/appointment_type_modal", locals: {appointment_type: @appointment_type} )
+          turbo_stream.replace(:modal, partial: "dashboard/appointment_types/appointment_type_modal", locals: { appointment_type: @appointment_type } )
         ]
       end
 

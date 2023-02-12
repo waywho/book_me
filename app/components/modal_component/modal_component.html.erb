@@ -1,8 +1,8 @@
 <div data-controller="modal-component">
-	<input type="checkbox" id="my-modal-6" class="modal-toggle" checked="<%= @auto %>" />
+	<input type="checkbox" id="<%= @modal %>" class="modal-toggle" <%= "checked" if @auto %> />
 	<div class="modal modal-bottom sm:modal-middle <%= 'modal-open' if @auto %>" data-modal-component-target="modal">
 		<div class="modal-box relative">
-			 <label for="my-modal-6" class="btn btn-sm btn-outline btn-circle absolute border-0 right-2 top-2" data-action="click->modal-component#close">✕</label>
+			 <label for="<%= @modal %>" class="btn btn-sm btn-outline btn-circle absolute border-0 right-2 top-2" data-action="click->modal-component#close">✕</label>
 			<%= content %>
 
 			<% if buttons? %>
