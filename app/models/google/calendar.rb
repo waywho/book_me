@@ -20,8 +20,10 @@ class Google::Calendar
     end
   end
 
-  def availabilities_by(type)
-    get_events(q: type)
+  def availabilities_by(uid)
+    get_events(q: uid).items.map do |event|
+      Google::EventItem.new(event: event)
+    end
   end
 
   def get_calendars
