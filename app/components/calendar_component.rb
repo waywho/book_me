@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CalendarComponent < ViewComponent::Base
-  attr_reader :time_zone, :current_date, :max_period, :end_booking_date, :availabilities, :appointment_type
+  attr_reader :time_zone, :current_date, :max_period, :end_booking_date, :availabilities, :appointment_type, :busy
 
     class DayComponent < ViewComponent::Base
       attr_reader :weekday, :date, :month, :year, :full_date,
@@ -17,7 +17,17 @@ class CalendarComponent < ViewComponent::Base
       end
     end
 
-  def initialize(current_date: nil, time_zone: nil, max_period: 30, availabilities: nil, appt_type: nil, new_appointment_url: "")
+    class Availability
+      attr_reader :start_at, :end_at
+
+      def initialize(start_at:, end_at:)
+        @start_at = start_at
+        @end_at = end_at
+      end
+    end
+
+  def initialize(current_date: nil, time_zone: nil, max_period: 30, availabilities: nil,
+                 busy: nil, appt_type: nil, new_appointment_url: "")
     @current_date = current_date || Time.now.in_time_zone(time_zone)
     @time_zone = time_zone
     @max_period = max_period
@@ -25,6 +35,7 @@ class CalendarComponent < ViewComponent::Base
     @availabilities = availabilities
     @appointment_type = appt_type
     @new_appointment_url = new_appointment_url
+    @busy = busy
   end
 
   def days
@@ -33,51 +44,108 @@ class CalendarComponent < ViewComponent::Base
     end
   end
 
-  def day_start
+  def availibilities_start_at
     availabilities.min_by { |a| a.start_at.hour }.start_at
   end
 
-  def day_start_minutes
-    (day_start - day_start.at_beginning_of_day) / 60
+  def availibilities_start_minutes
+    (availibilities_start_at.to_i - availibilities_start_at.at_beginning_of_day.to_i) / 60
   end
 
-  def day_end
+  def availabilities_end_at
     availabilities.max_by { |a| a.end_at.hour + 1 }.end_at
   end
 
-  def availability_date(date)
+  def availability_slots_by(date)
     return unless availabilities
 
-    availabilities.find { |a| a.start_date == date }
+    availabilities.select { |a| a.start_date == date }
   end
 
-  def availability_start_minutes(avail_date)
-    (avail_date.start_at - avail_date.start_at.at_beginning_of_day) / 60
+  def start_minutes_by(availability)
+    (availability.start_at.to_i - availability.start_at.at_beginning_of_day.to_i) / 60
   end
 
   def current_month
     l current_beginning_of_week, format: :month
   end
 
-  def availability_grid(availability_date)
-    return [] unless availability_date && appointment_type
+  def busy_events_by(date)
+    return unless busy
 
-    row_num = (availability_date.end_at.hour + 1 - availability_date.start_at.hour) * 60 / appointment_type.duration
-
-    row_start = (availability_start_minutes(availability_date) - day_start_minutes).to_i
-
-    row_num.times.each_with_object([]) do |n, a|
-      a << [row_start + (n * appointment_type.duration) + 1, availability_date.start_at.advance(minutes: (appointment_type.duration * n))]
-    end
+    busy.select { |b| b.start_date.to_date == date.to_date }
   end
 
-  def base_appointment_grid(with_availability_date = nil)
+  def availability_grid(date)
+    return [] unless date && appointment_type
+
+    availability_slots = availability_slots_by(date)
+    return [] if availability_slots.blank?
+
+    busy_events = busy_events_by(date)
+
+    build_availability_day(availability_slots, busy_events).map do |slot|
+      row_start = start_minutes_by(slot) - availibilities_start_minutes
+
+      # subtracting two datetime returns fraction of a day
+      row_num = ((slot.end_at.to_f - slot.start_at.to_f) / (60 * appointment_type.duration)).to_i
+
+      row_num.times.each_with_object([]) do |n, a|
+        a << {
+          row_ordinal: row_start + (n * appointment_type.duration) + 1,
+          start_at: slot.start_at.advance(minutes: (appointment_type.duration * n)),
+          end_at: slot.start_at.advance(minutes: (appointment_type.duration * (n + 1)) - 1)
+        }
+      end
+    end.flatten(1)
+  end
+
+  def base_calendar_grid(with_availability_date = false)
     return 1 unless with_availability_date && appointment_type
 
-    (day_end.hour + 1 - day_start.hour) * 60
+    (availabilities_end_at.hour + 1 - availibilities_start_at.hour) * 60
   end
 
   private
+
+  def build_availability_day(availabilities, busy_events)
+    return availabilities if busy_events.blank?
+
+    sorted_busy_events = busy_events.sort_by(&:start_at)
+
+    availabilities.each_with_object([]) do |availability, new_avails|
+      new_avails << build_availabity_slots(availability, sorted_busy_events)
+    end.flatten
+  end
+
+  def build_availabity_slots(availability, busy_events)
+    avails = []
+    busy_event = busy_events.first
+
+    return [availability] if busy_event.nil?
+
+    if busy_event.end_at > availability.start_at && busy_event.end_at < availability.end_at
+      if availability.start_at <= busy_event.start_at
+        avails << Availability.new(start_at: availability.start_at,
+                                   end_at: busy_event.start_at)
+        avails << build_availabity_slots(Availability.new(start_at: busy_event.end_at,
+                                   end_at: availability.end_at), busy_events.drop(1))
+      else
+        avails << build_availabity_slots(Availability.new(start_at: busy_event.end_at,
+                                   end_at: availability.end_at), busy_events.drop(1))
+      end
+    elsif busy_event.end_at > availability.end_at
+      if busy_event.start_at > availability.start_at && busy_event.start_at < availability.end_at
+        avails << Availability.new(start_at: availability.start_at,
+                                   end_at: busy_event.start_at)
+      end
+    elsif busy_event.end_at < availability.start_at
+      avails << build_availabity_slots(Availability.new(start_at: availability.start_at,
+                                   end_at: availability.end_at), busy_events.drop(1))
+    end
+
+    avails
+  end
 
   def slot_label(datetime)
     l datetime, format: :short_time
@@ -94,10 +162,10 @@ class CalendarComponent < ViewComponent::Base
     url.to_s
   end
 
-  def day_css(with_availability_date = nil)
+  def day_css(with_availability_date = false)
     bg_css = (with_availability_date ? "bg-white grid" : "bg-slate-200")
 
-    "row-start-4 rounded-lg h-[800px] #{bg_css} #{base_appointment_grid(with_availability_date)}"
+    "row-start-4 rounded-lg h-[800px] #{bg_css} #{base_calendar_grid(with_availability_date)}"
   end
 
   def min_date

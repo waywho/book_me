@@ -2,5 +2,11 @@
 <p><%= @appointment_type.description %></p>
 
 <div id="availabilities" class="mt-8 max-h-[600px] overflow-y-scroll px-6">
-	<%= render CalendarComponent.new(availabilities: @availabilities, appt_type: @appointment_type, new_appointment_url: new_appointment_url(id: @appointment_type, calendar: @calendar)) %>
+	<%= render CalendarComponent.new(
+			availabilities: @availabilities,
+			busy: @busy,
+			appt_type: @appointment_type,
+			new_appointment_url: new_appointment_url(
+				id: @appointment_type,
+				calendar: @calendar)) %>
 </div>

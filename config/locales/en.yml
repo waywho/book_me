@@ -32,6 +32,7 @@
 en:
   shared:
     availability_slot: Availability Slot
+    booking_via_fixr: Booking via FixR
   time:
     formats:
       short: "%d/%m/%Y %I:%M %P"

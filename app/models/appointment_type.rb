@@ -15,7 +15,7 @@ class AppointmentType < ApplicationRecord
 
   after_initialize :generate_identifier
 
-  def availability_template_info
+  def template_info
     {
       summary: "#{title}: FixR #{I18n.t(".shared.availability_slot")}",
       description: availability_identifier

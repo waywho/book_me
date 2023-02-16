@@ -15,7 +15,7 @@ class Google::Calendar
   end
 
   def events(q: nil)
-    get_events(q: q).items.map do |event|
+    @events ||= get_events(q: q).items.map do |event|
       Google::EventItem.new(event: event)
     end
   end
@@ -23,6 +23,16 @@ class Google::Calendar
   def availabilities_by(uid)
     get_events(q: uid).items.map do |event|
       Google::EventItem.new(event: event)
+    end
+  end
+
+  def free_busy_events_by(availability_uid)
+    events.each_with_object({ busy: [], availabilities: []}) do |event, h|
+      if event.description&.include?(availability_uid)
+        h[:availabilities] << event
+      else
+        h[:busy] << event
+      end
     end
   end
 
@@ -45,11 +55,42 @@ class Google::Calendar
     # end
   end
 
+  def add_event_by(appointment_type_hash, start_at:, end_at:)
+    start_at = Google::Apis::CalendarV3::EventDateTime.new(
+      date_time: start_at.iso8601,
+      time_zone: current_time_zone)
+    end_at = Google::Apis::CalendarV3::EventDateTime.new(date_time: end_at.iso8601,
+      time_zone: current_time_zone)
+
+    appointment_type_hash.merge!(
+      start: start_at,
+      end: end_at
+    )
+
+    event = Google::Apis::CalendarV3::Event.new(**appointment_type_hash)
+
+    add_event(event)
+  end
+
+  def add_appointment(appointment)
+    r = add_event_by(
+      appointment.template_info,
+      start_at: appointment.start_at,
+      end_at: appointment.end_at
+    )
+
+    r.status == "confirmed"
+  end
+
+  private
+
   def add_event(event)
     client.insert_event(calendar, event)
   end
 
-  private
+  def current_time_zone
+    ActiveSupport::TimeZone::MAPPING[Time.zone.name]
+  end
 
   def token
     @token = user.google_token

@@ -15,5 +15,8 @@ class AppointmentsControllerTest < ActionDispatch::IntegrationTest
           }
         }
     end
+
+    # mock = Minitest::Mock.new
+    # Google::Calendar.stub :add_event
   end
 end

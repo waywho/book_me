@@ -18,7 +18,9 @@ class AppointmentsController < ApplicationController
 
   def show
     if @appointment_type && !@appointment_type.pause?
-      @availabilities = calendar_service.events(q: @appointment_type.availability_identifier)
+      free_busy = calendar_service.free_busy_events_by(@appointment_type.availability_identifier)
+      @availabilities = free_busy[:availabilities]
+      @busy = free_busy[:busy]
     else
       render :appointment_not_availabile
     end
@@ -27,7 +29,8 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = @calendar.appointments.new({ appointment_type: @appointment_type }.merge(appointment_params))
 
-    if @appointment.save
+    if @appointment.save && calendar_service.add_appointment(@appointment)
+
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(:modal_content, partial: "appointments/create", locals: { appointment: @appointment })

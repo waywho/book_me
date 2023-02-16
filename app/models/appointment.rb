@@ -2,6 +2,13 @@ class Appointment < Event
   after_initialize :dup_from_appointment_type
   validates :creator_email, :creator_name, :start_at, presence: true
 
+  def template_info
+    {
+      summary: title,
+      description: "#{I18n.t(".shared.booking_via_fixr")}: #{self.description}"
+    }
+  end
+
   private
 
   def dup_from_appointment_type
