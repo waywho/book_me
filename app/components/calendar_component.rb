@@ -73,7 +73,7 @@ class CalendarComponent < ViewComponent::Base
   def busy_events_by(date)
     return unless busy
 
-    busy.select { |b| b.start_date.to_date == date.to_date }
+    busy.select { |b| b.start_date == date.to_date }
   end
 
   def availability_grid(date)
@@ -91,10 +91,12 @@ class CalendarComponent < ViewComponent::Base
       row_num = ((slot.end_at.to_f - slot.start_at.to_f) / (60 * appointment_type.duration)).to_i
 
       row_num.times.each_with_object([]) do |n, a|
+        start_time = slot.start_at.advance(minutes: (appointment_type.duration * n))
+        # Start time in current time zone
         a << {
           row_ordinal: row_start + (n * appointment_type.duration) + 1,
-          start_at: slot.start_at.advance(minutes: (appointment_type.duration * n)),
-          end_at: slot.start_at.advance(minutes: (appointment_type.duration * (n + 1)) - 1)
+          start_at: start_time,
+          end_at: start_time.advance(minutes: (appointment_type.duration * (n + 1)) - 1)
         }
       end
     end.flatten(1)
@@ -124,7 +126,7 @@ class CalendarComponent < ViewComponent::Base
 
     return [availability] if busy_event.nil?
 
-    if busy_event.end_at > availability.start_at && busy_event.end_at < availability.end_at
+    if busy_event.end_at >= availability.start_at && busy_event.end_at <= availability.end_at
       if availability.start_at <= busy_event.start_at
         avails << Availability.new(start_at: availability.start_at,
                                    end_at: busy_event.start_at)
@@ -134,12 +136,12 @@ class CalendarComponent < ViewComponent::Base
         avails << build_availabity_slots(Availability.new(start_at: busy_event.end_at,
                                    end_at: availability.end_at), busy_events.drop(1))
       end
-    elsif busy_event.end_at > availability.end_at
-      if busy_event.start_at > availability.start_at && busy_event.start_at < availability.end_at
+    elsif busy_event.end_at >= availability.end_at
+      if busy_event.start_at >= availability.start_at && busy_event.start_at <= availability.end_at
         avails << Availability.new(start_at: availability.start_at,
                                    end_at: busy_event.start_at)
       end
-    elsif busy_event.end_at < availability.start_at
+    elsif busy_event.end_at <= availability.start_at
       avails << build_availabity_slots(Availability.new(start_at: availability.start_at,
                                    end_at: availability.end_at), busy_events.drop(1))
     end

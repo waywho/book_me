@@ -21,12 +21,11 @@
 				<div class="<%= day_css(availability_slots_by(day.full_date).present?) %>" style="grid-template-rows: repeat(<%= base_calendar_grid(availability_slots_by(day.full_date).present?) %>, 1.3px">
 					<% if availability_slots_by(day.full_date).present? %>
 						<% availability_grid(day.full_date).each do |slot| %>
-							<%# if slot[:start_at] && slot[:end_at] %>
-							<%# else %>
+							<% if slot[:start_at] >= Time.zone.now %>
 								<%= link_to appointment_link(slot[:start_at].to_s), class: "border rounded-lg p-2 sm:p-4 cursor-auto transition bg-white ease-in-out hover:scale-110 duration-300 shadow cursor-pointer mb-2", style: "grid-row: #{slot[:row_ordinal]} / span #{appointment_type.duration}", data: { turbo_stream: true } do %>
 										<span class="text-sm"><%= slot_label(slot[:start_at]) %></span>
 								<% end %>
-							<%# end %>
+							<% end %>
 						<% end %>
 					<% end %>
 				</div>

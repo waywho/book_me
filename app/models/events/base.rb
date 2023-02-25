@@ -39,5 +39,9 @@ module Events
     def location
       raise NotImplementedError
     end
+
+    def time_zone
+      raise NotImplementedError
+    end
   end
 end

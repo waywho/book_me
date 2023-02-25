@@ -50,6 +50,9 @@ gem "spicy-proton"
 gem "view_component"
 gem "lookbook", ">= 1.0.7"
 
+# Scheduling
+gem 'ice_cube'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 

@@ -9,6 +9,7 @@ class AppointmentsController < ApplicationController
   def new
     @appointment = @calendar.appointments.new(appointment_type: @appointment_type, start_at: params[:start_at].to_datetime)
 
+    # TODO: reload window if the time is before Time.zone.now
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace(:modal, partial: "appointments/appointment_modal", locals: { appointment: @appointment })
@@ -30,7 +31,6 @@ class AppointmentsController < ApplicationController
     @appointment = @calendar.appointments.new({ appointment_type: @appointment_type }.merge(appointment_params))
 
     if @appointment.save && calendar_service.add_appointment(@appointment)
-
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(:modal_content, partial: "appointments/create", locals: { appointment: @appointment })
