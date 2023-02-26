@@ -33,6 +33,7 @@ en:
   shared:
     availability_slot: Availability Slot
     booking_via_fixr: Booking via FixR
+    signature: Your FixR
   time:
     formats:
       short: "%d/%m/%Y %I:%M %P"
@@ -50,6 +51,8 @@ en:
   datetime:
     formats:
       short: "%d/%m/%Y %I:%M %P"
+      short_date: "%d/%m/%Y"
+      short_time: "%I:%M %P"
   helpers:
     submit:
       event:

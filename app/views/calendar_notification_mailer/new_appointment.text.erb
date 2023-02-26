@@ -1,0 +1,14 @@
+<%= t ".greeting", name: @calendar_owner.full_name %>
+
+<%= t ".new_appointment", appointment_type: @appointment_type.title %>
+
+<%= t ".appointment_info" %>:
+
+<%= t ".name" %>: <%= @booker_name %>
+<%= t ".email" %>: <%= @booker_email %>
+<%= t ".date" %>: <%= l @appointment.start_at, format: :short_date %>
+<%= t ".time" %>: <%= l @appointment.start_at, format: :short_time %>
+
+<%= t ".closing" %>
+
+<%= t "shared.signature" %>

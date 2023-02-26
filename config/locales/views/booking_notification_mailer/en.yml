@@ -1,0 +1,13 @@
+en:
+  booking_notification_mailer:
+    confirm_appointment:
+      greeting: "Dear %{name},"
+      new_appointment:
+        "This is to confirm your %{appointment_type} appointment with %{person}"
+      appointment_info: "Appointment information"
+      name: Name
+      email: Email
+      date: Date
+      time: Time
+      closing: "Sincerely,"
+      signature: "Your FixR"

@@ -31,6 +31,10 @@ class AppointmentsController < ApplicationController
     @appointment = @calendar.appointments.new({ appointment_type: @appointment_type }.merge(appointment_params))
 
     if @appointment.save && calendar_service.add_appointment(@appointment)
+
+      CalendarNotificationMailer.with(appointment_id: @appointment.id).new_appointment.deliver_later
+      BookingNotificationMailer.with(appointment_id: @appointment.id).confirm_appointment.deliver_later
+
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace(:modal_content, partial: "appointments/create", locals: { appointment: @appointment })

@@ -1,0 +1,12 @@
+en:
+  calendar_notification_mailer:
+    new_appointment:
+      greeting: "Dear %{name},"
+      new_appointment:
+        "You have received a new %{appointment_type} appointment."
+      appointment_info: "Appointment information"
+      name: Name
+      email: Email
+      date: Date
+      time: Time
+      closing: "Sincerely,"
