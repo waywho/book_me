@@ -1,6 +1,7 @@
 class AppointmentsController < ApplicationController
+  include PublicCalendarSetter
   before_action :set_calendar
-  before_action :set_appointment_type, except: :index
+  before_action :set_appointment_type, except: %i[index show destroy]
 
   def index
     @appointment_types = @calendar.appointment_types
@@ -18,20 +19,18 @@ class AppointmentsController < ApplicationController
   end
 
   def show
-    if @appointment_type && !@appointment_type.pause?
-      free_busy = calendar_service.free_busy_events_by(@appointment_type.availability_identifier)
-      @availabilities = free_busy[:availabilities]
-      @busy = free_busy[:busy]
-    else
-      render :appointment_not_availabile
-    end
+    @appointment = @calendar.appointments.find(params[:id])
+    @appointment_type = @appointment.appointment_type
+
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = t(".no_appointment")
+    redirect_to calendars_path(calendar: @calendar) and return
   end
 
   def create
-    @appointment = @calendar.appointments.new({ appointment_type: @appointment_type }.merge(appointment_params))
+    @appointment = @calendar.appointments.new({ appointment_type: @appointment_type, user_id: @calendar.user.id }.merge(appointment_params))
 
-    if @appointment.save && calendar_service.add_appointment(@appointment)
-
+    if calendar_service.add_appointment(@appointment) && @appointment.save
       CalendarNotificationMailer.with(appointment_id: @appointment.id).new_appointment.deliver_later
       BookingNotificationMailer.with(appointment_id: @appointment.id).confirm_appointment.deliver_later
 
@@ -49,19 +48,19 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def destroy
+    @appointment = @calendar.appointments.find(params[:id])
+
+    if calendar_service.cancel_appointment(@appointment) && @appointment.destroy
+      CalendarNotificationMailer.with(appointment_id: @appointment.id).cancelled_appointment.deliver_later
+      BookingNotificationMailer.with(appointment_id: @appointment.id).cancelled_appointment.deliver_later
+
+      flash[:notice] = t(".appointment_removed")
+      redirect_to calendars_path(calendar: @calendar) and return
+    end
+  end
+
   private
-
-  def set_appointment_type
-    @appointment_type = @calendar.appointment_types.friendly.find(params[:id])
-  end
-
-  def set_calendar
-    @calendar = Calendar.friendly.find(params[:calendar])
-  end
-
-  def calendar_service
-    @calendar_service ||= Google::Calendar.new(user: @calendar.user)
-  end
 
   def appointment_params
     params.require(:appointment).permit(:start_at, :creator_name, :creator_email)

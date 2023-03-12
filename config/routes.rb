@@ -17,7 +17,8 @@ Rails.application.routes.draw do
   end
 
   scope "/:calendar" do
-    get "/", to: "appointments#index"
+    get "/", to: "calendar#index", as: :calendars
+    resources :calendar, only: [:show]
     resources :appointments, except: :index
   end
 

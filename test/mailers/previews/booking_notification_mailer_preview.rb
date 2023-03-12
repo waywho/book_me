@@ -4,4 +4,9 @@ class BookingNotificationMailerPreview < ActionMailer::Preview
     appointment = Appointment.last
     BookingNotificationMailer.with(appointment_id: appointment.id).confirm_appointment
   end
+
+  def cancelled_appointment
+    appointment = Appointment.deleted.first
+    BookingNotificationMailer.with(appointment_id: appointment.id).cancelled_appointment
+  end
 end

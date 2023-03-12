@@ -1,7 +1,12 @@
 en:
-  appt_with_person: "%{appt} with %{person}"
   appointments:
     index:
       book_appointments: Book Appointments with %{person}
+    show:
+      title: Your %{title}
+      no_appointment: This appointment doesn't exist anymore.
+        Maybe you would like to make another appointment.
     appointment_modal:
       confirm_appointment: Confirm appointment
+    destroy:
+      appointment_removed: You have successfully canceled your appointment.

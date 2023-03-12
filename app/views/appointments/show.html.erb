@@ -1,12 +1,12 @@
-<h2><%= @appointment_type.title %></h2>
-<p><%= @appointment_type.description %></p>
+<h2><%= t "shared.appt_with_person", appt: @appointment.title, person: @appointment.creator_name %></h2>
+<p><%= @appointment.description %></p>
+<p><%= @appointment.location %></p>
+<p><%= @appointment.creator_name %></p>
+<p><%= @appointment.creator_email %></p>
+<p><%= l @appointment.start_at, format: :short_date %></p>
+<p><%= l @appointment.start_at, format: :short_time %></p>
 
-<div id="availabilities" class="mt-8 max-h-[600px] overflow-y-scroll px-6">
-	<%= render CalendarComponent.new(
-			availabilities: @availabilities,
-			busy: @busy,
-			appt_type: @appointment_type,
-			new_appointment_url: new_appointment_url(
-				id: @appointment_type,
-				calendar: @calendar)) %>
-</div>
+<p><%= l @appointment.end_at, format: :short_date %></p>
+<p><%= l @appointment.end_at, format: :short_time %></p>
+
+<%= button_to "Cancel appointment", appointment_path(@appointment, calendar: @calendar), class: "btn btn-accent mt-4", method: :delete %>

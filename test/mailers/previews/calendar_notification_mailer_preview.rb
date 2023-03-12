@@ -4,4 +4,9 @@ class CalendarNotificationMailerPreview < ActionMailer::Preview
     appointment = Appointment.last
     CalendarNotificationMailer.with(appointment_id: appointment.id).new_appointment
   end
+
+  def cancelled_appointment
+    appointment = Appointment.deleted.first
+    CalendarNotificationMailer.with(appointment_id: appointment.id).cancelled_appointment
+  end
 end

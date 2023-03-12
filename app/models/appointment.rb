@@ -13,8 +13,8 @@ class Appointment < Event
 
   def dup_from_appointment_type
     return unless appointment_type
-
-    self.title = I18n.t("appt_with_person", appt: appointment_type.title, person: self.creator_name)
+    # I18n.t("appt_with_person", appt: appointment_type.title, person: self.creator_name)
+    self.title = appointment_type.title
     self.description = appointment_type.description
     self.end_at = start_at + appointment_type.duration.minutes
     self.user = calendar.user

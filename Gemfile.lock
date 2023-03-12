@@ -175,6 +175,8 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.16.3)
+    mocha (2.0.2)
+      ruby2_keywords (>= 0.0.5)
     msgpack (1.5.6)
     multi_json (1.15.0)
     multi_xml (0.6.0)
@@ -221,6 +223,8 @@ GEM
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
     os (1.1.4)
+    paranoia (2.6.1)
+      activerecord (>= 5.1, < 7.1)
     pg (1.4.3)
     public_suffix (5.0.0)
     puma (5.6.5)
@@ -368,10 +372,12 @@ DEPENDENCIES
   letter_opener
   local_time
   lookbook (>= 1.0.7)
+  mocha
   net-http
   omniauth
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
+  paranoia
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.3)

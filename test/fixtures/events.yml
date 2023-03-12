@@ -1,27 +1,26 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+appointment_one:
   title: MyString
   description: MyText
   location: MyString
   calendar: one
   start_at: 2022-12-02
-  type: 
-  creator_name: MyString
-  creator_name: MyString
-  creator_email: MyString
+  type: Appointment
+  creator_name: Lisa Simpson
+  creator_email: lisa@test.com
   etag: MyString
   identifier: MyString
   user: one
   appointment_type: one
 
-two:
+appointment_two:
   title: MyString
   description: MyText
   location: MyString
   calendar: two
   start_at: 2022-12-02
-  type: 
+  type: Appointment
   creator_name: MyString
   creator_name: MyString
   creator_email: MyString
@@ -29,3 +28,19 @@ two:
   identifier: MyString
   user: two
   appointment_type: two
+
+appointment_cancelled:
+  title: MyString
+  description: MyText
+  location: MyString
+  calendar: two
+  start_at: 2022-12-02
+  type: Appointment
+  deleted_at: Date.today
+  creator_name: MyString
+  creator_name: MyString
+  creator_email: MyString
+  etag: MyString
+  identifier: MyString
+  user: two
+  appointment_type: one

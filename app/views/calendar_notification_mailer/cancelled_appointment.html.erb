@@ -1,6 +1,6 @@
 <p><%= t ".greeting", name: @calendar.user.full_name %></p>
 
-<p><%= t ".new_appointment_html", appointment_type: @appointment_type.title, booker: @booker_name %></p>
+<p><%= t ".cancelled_appointment_html", appointment_type: @appointment_type.title, person: @booker_name %></p>
 
 <h3><%= t ".appointment_info" %>:</h3>
 <ul>
@@ -8,6 +8,7 @@
 	<li><b><%= t ".email" %>:</b> <%= @booker_email %></li>
 	<li><b><%= t ".date" %>:</b> <%= l @appointment.start_at, format: :short_date %></li>
 	<li><b><%= t ".time" %>:</b> <%= l @appointment.start_at, format: :short_time %></li>
+	<li><b><%= t ".cancelled_on" %>:</b> <%= l @appointment.deleted_at, format: :short_date %></li>
 </ul>
 
 <%= t ".see_your_appointment", path: appointment_url(@appointment, calendar: @calendar) %>

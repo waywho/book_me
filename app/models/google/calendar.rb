@@ -65,15 +65,15 @@ class Google::Calendar
   end
 
   def add_event_by(appointment_type_hash, start_at:, end_at:)
-    start_at = Google::Apis::CalendarV3::EventDateTime.new(
+    start_time = Google::Apis::CalendarV3::EventDateTime.new(
       date_time: start_at.iso8601,
       time_zone: current_time_zone)
-    end_at = Google::Apis::CalendarV3::EventDateTime.new(date_time: end_at.iso8601,
+    end_time = Google::Apis::CalendarV3::EventDateTime.new(date_time: end_at.iso8601,
       time_zone: current_time_zone)
 
     appointment_type_hash.merge!(
-      start: start_at,
-      end: end_at
+      start: start_time,
+      end: end_time
     )
 
     event = Google::Apis::CalendarV3::Event.new(**appointment_type_hash)
@@ -88,7 +88,13 @@ class Google::Calendar
       end_at: appointment.end_at
     )
 
-    r.status == "confirmed"
+    appointment.update(identifier: r.id) && r.status == "confirmed"
+  end
+
+  def cancel_appointment(appointment)
+    r = client.delete_event(calendar, appointment.identifier)
+
+    r.blank?
   end
 
   private

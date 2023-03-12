@@ -53,6 +53,9 @@ gem "lookbook", ">= 1.0.7"
 # Scheduling
 gem 'ice_cube'
 
+# Paranoia
+gem "paranoia"
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
@@ -111,6 +114,8 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  #
+  gem 'mocha'
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"

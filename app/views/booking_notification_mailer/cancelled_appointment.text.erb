@@ -1,13 +1,12 @@
 <%= t ".greeting", name: @booker_name %>
 
-<%= t ".new_appointment", appointment_type: @appointment_type.title, person: @calendar.user.full_name %>
+<%= t ".appointment_cancelled", appointment_type: @appointment_type.title, person: @calendar.user.full_name %>
 
 <%= t ".appointment_info" %>:
 
 <%= t ".date" %>: <%= l @appointment.start_at, format: :short_date %>
 <%= t ".time" %>: <%= l @appointment.start_at, format: :short_time %>
-
-<%= t ".see_your_appointment", path: appointment_url(@appointment, calendar: @calendar) %>
+<%= t ".cancelled_on" %>: <%= l @appointment.deleted_at, format: :short_date %>
 
 <%= t ".closing" %>
 

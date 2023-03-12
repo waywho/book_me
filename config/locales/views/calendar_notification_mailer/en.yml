@@ -1,12 +1,30 @@
 en:
   calendar_notification_mailer:
     new_appointment:
+      subject: "FixR: You've got a new %{title} appointment with %{person}"
       greeting: "Dear %{name},"
+      new_appointment_html:
+        "<b>%{booker}</b> scheduled a new %{appointment_type} appointment with you."
       new_appointment:
-        "You have received a new %{appointment_type} appointment."
+        "%{booker} scheduled a new %{appointment_type} appointment with you."
       appointment_info: "Appointment information"
       name: Name
       email: Email
       date: Date
       time: Time
+      closing: "Sincerely,"
+      see_your_appointment: You can see your appointment here %{path}
+    cancelled_appointment:
+      subject: "FixR: Your appointment %{title} with %{person} is cancelled"
+      greeting: "Dear %{name},"
+      cancelled_appointment_html:
+        "Your %{appointment_type} appointment with <b>%{person}</b> is cancelled"
+      cancelled_appointment:
+        "Your %{appointment_type} appointment with %{person} is cancelled"
+      appointment_info: "Appointment information"
+      name: Name
+      email: Email
+      date: Date
+      time: Time
+      cancelled_on: Cancelled on
       closing: "Sincerely,"
