@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   end
 
   namespace :dashboard do
+    resources :appointments, only: :show
     get :onboarding, to: 'dashboard_wizard#show'
     put :onboarding, to: 'dashboard_wizard#update'
     get "/", to: "calendars#index"

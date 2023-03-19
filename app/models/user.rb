@@ -9,6 +9,8 @@ class User < ApplicationRecord
           class_name: "Token", autosave: true, dependent: :delete
   has_many :calendars
   has_many :appointment_types
+  has_many :events
+  has_many :appointments, class_name: "Event"
 
   def self.from_omniauth(auth)
     where(email: auth.info.email, provider: auth.provider).first_or_initialize do |user|

@@ -134,6 +134,11 @@ GEM
       temple (>= 0.8.2)
       thor
       tilt
+    haml-rails (2.1.0)
+      actionpack (>= 5.1)
+      activesupport (>= 5.1)
+      haml (>= 4.0.6)
+      railties (>= 5.1)
     hashie (5.0.0)
     hiredis (0.6.3)
     htmlbeautifier (1.4.2)
@@ -372,6 +377,7 @@ DEPENDENCIES
   friendly_id
   google-apis-calendar_v3
   haml
+  haml-rails
   hiredis
   http_accept_language
   ice_cube

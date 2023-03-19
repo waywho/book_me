@@ -10,7 +10,7 @@
 	<li><b><%= t ".time" %>:</b> <%= l @appointment.start_at, format: :short_time %></li>
 </ul>
 
-<%= t ".see_your_appointment", path: appointment_url(@appointment, calendar: @calendar) %>
+<%= t ".see_your_appointment", path: dashboard_appointment_url(@appointment) %>
 
 <p><%= t ".closing" %></p>
 <p><i><%= t "shared.signature" %></i></p>

@@ -41,6 +41,7 @@ en:
       weekday: "%a"
       short_date: "%d/%m/%Y"
       short_time: "%I:%M %P"
+      short_datetime: "%d/%m/%Y %I:%M %P"
       hour_sec: "%I:%M"
   date:
     formats:

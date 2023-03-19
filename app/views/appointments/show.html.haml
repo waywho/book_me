@@ -1,0 +1,5 @@
+%h2= t "shared.appt_with_person", appt: @appointment.title, person: @calendar.user.full_name
+
+= render "appointment", appointment: @appointment
+
+= button_to "Cancel appointment", appointment_path(@appointment, calendar: @calendar), class: "btn btn-accent mt-4", method: :delete

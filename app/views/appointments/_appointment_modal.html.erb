@@ -1,7 +1,7 @@
 <%= turbo_frame_tag :modal do %>
 	<%= render ModalComponent.new(auto: true) do |c| %>
 		<div id="modal_content">
-			<%= simple_form_for appointment, url: appointments_path(id: @appointment_type, calendar: @calendar), method: :post do |f| %>
+			<%= simple_form_for appointment, url: appointments_path(id: @appointment_type, calendar: @calendar), method: :post, data: { turbo: "false" } do |f| %>
 				<h3><%= t("appt_with_person", appt: f.object.appointment_type.title , person: f.object.appointment_type.user.full_name) %></h3>
 				<p><%= f.object.description %></p>
 				<div><%= appointment.location %></div>

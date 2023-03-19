@@ -2,6 +2,7 @@ class CalendarController < ApplicationController
   include PublicCalendarSetter
   before_action :set_calendar
   before_action :set_appointment_type, except: :index
+  before_action :authenticate_user!
 
   def index
     @appointment_types = @calendar.appointment_types
