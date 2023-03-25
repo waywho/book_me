@@ -1,5 +1,7 @@
-%h2= t "shared.appt_with_person", appt: @appointment.title, person: @appointment.creator_name
-
-= render "appointments/appointment", appointment: @appointment
-
-= button_to "Cancel appointment", appointment_path(@appointment, calendar: @appointment.calendar), class: "btn btn-accent mt-4", method: :delete
+.card.w-96.bg-base-100.shadow-xl.mx-auto
+	.card-body
+		%h2.card-title
+			= t "shared.appt_with_person", appt: @appointment.title, person: @appointment.creator_name
+		= render "appointments/appointment", appointment: @appointment
+		.card-actions.justify-end
+			= button_to "Cancel appointment", appointment_path(@appointment, calendar: @appointment.calendar), class: "btn btn-accent", method: :delete

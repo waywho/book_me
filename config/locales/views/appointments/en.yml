@@ -8,5 +8,7 @@ en:
         Maybe you would like to make another appointment.
     appointment_modal:
       confirm_appointment: Confirm appointment
+    create:
+      confirm_appointment: Yay! You have successfully created an appointment.
     destroy:
       appointment_removed: You have successfully canceled your appointment.

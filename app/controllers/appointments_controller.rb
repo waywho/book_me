@@ -43,6 +43,7 @@ class AppointmentsController < ApplicationController
           render turbo_stream: turbo_stream.replace(:modal_content, partial: "appointments/create", locals: { appointment: @appointment })
         end
 
+        flash[:notice] = t(".confirm_appointment")
         format.html { redirect_to appointment_redirect_path(@appointment) }
       end
     else

@@ -35,6 +35,11 @@ en:
     booking_via_fixr: Booking via FixR
     signature: Your FixR
     appt_with_person: "Your %{appt} with %{person}"
+    from: "From"
+    to: "To"
+    creator_email: Email
+    creator_name: Booked by
+    location: Location
   time:
     formats:
       short: "%d/%m/%Y %I:%M %P"

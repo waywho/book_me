@@ -2,9 +2,11 @@ module.exports = {
   mode: 'jit',
   content: [
     './app/views/**/*.html.erb',
+    './app/views/**/*.html.haml',
     './app/helpers/**/*.rb',
     './app/components/*.rb',
     './app/components/**/*.html.erb',
+    './app/components/**/*.html.haml',
     './app/components/**/*.js',
     './app/assets/stylesheets/**/*.css',
     './app/javascript/**/*.js',
