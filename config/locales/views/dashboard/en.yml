@@ -1,5 +1,7 @@
 en:
   dashboard:
+    appointments:
+      index: Your Appointments
     dashboard_wizard:
       connect_calendar:
         connect_calendar: Connect to your %{name} calendar
@@ -28,8 +30,9 @@ en:
         primary: Primary
         or: OR
         calendar: Calendar
-        appointment_type: Appointment
+        appointment_type: Appointment Type
         availabilities: Availabilities
+        appointments: Appointments
         calendar_settings: Calendar Settings
         people_can_book: "People can book appointments with you at:"
     availabilities:

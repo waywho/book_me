@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class EventComponentPreview < ViewComponent::Preview
-  def default
+  # @param width select { choices: [card, full] }
+  def default(width: :card)
     calendar = Calendar.new(
       user: User.first,
       provider: "google_oauth2"
@@ -16,6 +17,7 @@ class EventComponentPreview < ViewComponent::Preview
       creator_email: "elaine@isingjazz.com",
       calendar: calendar
     )
-    render(EventComponent.new(event: event))
+
+    render(EventComponent.new(event: event, width: width))
   end
 end

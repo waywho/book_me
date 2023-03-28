@@ -1,21 +1,29 @@
-%i.mb-4= appointment.description
+.card.w-96.bg-slate-200.shadow-xl.mx-auto.mb-2
+	.card-body
+		%h2.card-title
+			= title
 
-- if appointment.location
-	%p
-		%b= t "shared.location"
-		= appointment.location
+		%i.mb-4= appointment.description
 
-%table.w-full.mb-4
-	%tbody
-		%tr
-			%th.text-right.pr-4= t "shared.creator_name"
-			%td= appointment.creator_name
-		%tr
-			%th.text-right.pr-4= t "shared.creator_email"
-			%td= appointment.creator_email
-		%tr
-			%th.text-right.pr-4= t "shared.from"
-			%td= l appointment.start_at, format: :short_datetime
-		%tr
-			%th.text-right.pr-4= t "shared.to"
-			%td= l appointment.end_at, format: :short_datetime
+		- if appointment.location
+			%p
+				%b= t "shared.location"
+				= appointment.location
+
+		%table.w-full.mb-4
+			%tbody
+				%tr
+					%th.text-right.pr-4= t "shared.creator_name"
+					%td= appointment.creator_name
+				%tr
+					%th.text-right.pr-4= t "shared.creator_email"
+					%td= appointment.creator_email
+				%tr
+					%th.text-right.pr-4= t "shared.from"
+					%td= l appointment.start_at, format: :short_datetime
+				%tr
+					%th.text-right.pr-4= t "shared.to"
+					%td= l appointment.end_at, format: :short_datetime
+
+		.card-actions.justify-end
+			= button_to "Cancel appointment", appointment_path(appointment, calendar: appointment.calendar), class: "btn btn-accent", method: :delete

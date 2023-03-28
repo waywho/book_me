@@ -8,6 +8,7 @@
     <%= link_to t(".calendar"), "", class: 'tab tab-lg tab-active w-full', "data-turbo-frame": "calendar", "data-action": "toggle#toggleVisibility", "data-target-id": "calendar" %>
     <%= link_to t(".appointment_type"), dashboard_appointment_type_path(@appointment_type), class: 'tab tab-lg w-full', "data-turbo-frame": dom_id(@appointment_type), "data-action": "toggle#toggleVisibility", "data-target-id": "appointment_types" %>
     <%= link_to t(".availabilities"), [:dashboard, @appointment_type, :availabilities], class: 'tab tab-lg w-full', "data-turbo-frame": "availabilities", "data-action": "toggle#toggleVisibility", "data-target-id": "availabilities" %>
+    <%= link_to t(".appointments"), [:dashboard, :appointments], class: 'tab tab-lg w-full', "data-turbo-frame": "availabilities", "data-action": "toggle#toggleVisibility", "data-target-id": "appointments" %>
   </div>
 
   <%= turbo_frame_tag :calendar, class: "w-full md:flex-1 data-[toggle=hide]:hidden", "data-toggle": "show" do %>
@@ -30,6 +31,10 @@
     <% end %>
   </div>
   <%= turbo_frame_tag :availabilities, src: [:dashboard, @appointment_type, :availabilities], class: "w-full md:flex-1 data-[toggle=hide]:hidden", loading: "lazy", "data-toggle": "hide" do %>
+    loading...
+  <% end %>
+
+  <%= turbo_frame_tag :appointments, src: [:dashboard, :appointments], class: "w-full md:flex-1 data-[toggle=hide]:hidden", loading: "lazy", "data-toggle": "hide" do %>
     loading...
   <% end %>
 </div>

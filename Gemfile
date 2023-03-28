@@ -48,7 +48,7 @@ gem "spicy-proton"
 
 # ViewComponent
 gem "view_component"
-gem "lookbook", ">= 1.0.7"
+gem "lookbook", "~> 1.5.3"
 
 # Scheduling
 gem 'ice_cube'
