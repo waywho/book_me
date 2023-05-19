@@ -1,7 +1,7 @@
-.card.w-96.bg-slate-200.shadow-xl.mx-auto.mb-2
+%div{ class: wrapper_classes }
 	.card-body
 		%h2.card-title
-			= title
+			= t(".appt_with_person", appt: appointment.title, person: appointment.creator_name)
 
 		%i.mb-4= appointment.description
 
@@ -26,4 +26,4 @@
 					%td= l appointment.end_at, format: :short_datetime
 
 		.card-actions.justify-end
-			= button_to "Cancel appointment", appointment_path(appointment, calendar: appointment.calendar), class: "btn btn-accent", method: :delete
+			= button_to "Cancel appointment", appointment_path(appointment, calendar: calendar), class: "btn btn-accent", method: :delete

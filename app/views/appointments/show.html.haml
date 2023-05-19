@@ -1,1 +1,1 @@
-= render "appointment", appointment: @appointment, title: t("shared.appt_with_person", appt: @appointment.title, person: @calendar.user.full_name)
+= render AppointmentCardComponent.new(appointment: @appointment, with: :calendar_owner)

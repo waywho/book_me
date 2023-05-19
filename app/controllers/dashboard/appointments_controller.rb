@@ -2,7 +2,7 @@ class Dashboard::AppointmentsController < DashboardController
   skip_before_action :set_current_calendar
 
   def index
-    @appointments = current_user.appointments.current
+    @appointments = current_user.appointments.includes(:calendar).current
   end
 
   def show

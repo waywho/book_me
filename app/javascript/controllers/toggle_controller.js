@@ -9,6 +9,7 @@ export default class extends Controller {
   }
 
   toggleVisibility(e) {
+    e.preventDefault();
     document.querySelectorAll('[data-toggle]').forEach(e => {
       e.dataset.toggle = "hide"
     })

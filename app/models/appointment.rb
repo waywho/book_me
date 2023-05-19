@@ -1,5 +1,5 @@
 class Appointment < Event
-  after_initialize :dup_from_appointment_type
+  after_initialize :dup_from_appointment_type, if: :new_record?
   validates :creator_email, :creator_name, :start_at, presence: true
 
   def template_info

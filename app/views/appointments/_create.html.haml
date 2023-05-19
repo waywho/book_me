@@ -1,3 +1,3 @@
 #modal_content
 	Congrats! You have made an appointment.
-	= render "appointment", appointment: @appointment
+	= render AppointmentCardComponent.new(appointment: @appointment, with: :calendar_owner)
